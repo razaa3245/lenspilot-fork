@@ -15,13 +15,15 @@
       <div class="flex flex-wrap gap-4 mt-6">
         <button type="button"
           class="bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl">
+          <a href="shopkeeper.blade.php">
           Start Free Trial
+          </a>
         </button>
         <!-- Watch Demo Button -->
 <a href="#"
    class="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition-all duration-300 px-8 py-3 rounded-xl inline-block text-center"
    onclick="openModal('demoModal'); return false;">
-   ▶ Watch Demo
+   Watch Demo
 </a>
 
 <!-- Demo Video Modal -->

@@ -24,3 +24,12 @@ Route::get('/features.blade.php', function () {
 Route::get('/adminboard.blade.php', function () {
     return view('web/content/adminboard');
 });
+Route::get('/index.blade.php', function () {
+    return view('web/index');
+});
+Route::get('/contact.blade.php', function () {
+    return view('web/content/contact');
+});
+Route::get('/catalog.blade.php', function () {
+    return view('web/content/catalog');
+});

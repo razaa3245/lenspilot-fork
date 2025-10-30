@@ -15,7 +15,7 @@
     <div class="flex-1 min-w-[320px]">
       <div class="mb-12">
         <h2 class="text-2xl text-blue-800 font-bold mb-2">
-          <a href="#signup.blade.php" class="hover:underline">
+          <a href="signup.blade.php" class="hover:underline">
             Shop Register
           </a>
         </h2>

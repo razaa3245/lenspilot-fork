@@ -82,7 +82,7 @@
       <!-- Card 1 -->
       <div class="bg-gray-50 rounded-xl p-7 shadow-md hover:-translate-y-1 transition">
         <div class="text-blue-600 mb-2">
-          <svg class="w-8 h-8 inline" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg class="w-8 h-8 inline"  viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
         <h3 class="text-xl mb-2 font-semibold">Optical Retailers</h3>
         <p class="text-gray-600 mb-3">Enhance in-store and online shopping with virtual try-on kiosks and web integration.</p>

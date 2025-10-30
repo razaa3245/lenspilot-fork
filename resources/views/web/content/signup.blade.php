@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VirtualLens | Access Portal</title>
+  <title>VisionTech</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="m-0 p-4 font-sans bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#334155] min-h-screen flex items-center justify-center overflow-y-auto">
@@ -16,7 +16,7 @@
     </div>
 
 
-<h2 class="text-white text-3xl font-semibold mb-2 tracking-wide">VirtualLens</h2>
+<h2 class="text-white text-3xl font-semibold mb-2 tracking-wide">VisionTech</h2>
 <p class="text-gray-300 mb-6 text-sm">Experience next-gen optical management</p>
 
 <!-- Toggle Buttons -->
@@ -27,6 +27,7 @@
   </button>
   <button id="signupBtn" onclick="showForm('signup')"
     class="w-[48%] text-gray-300 font-semibold py-2 rounded-md transition-all duration-300 hover:bg-white/10 hover:text-white">
+   
     Sign Up
   </button>
 </div>
@@ -39,7 +40,11 @@
     class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
   <button type="submit"
     class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md cursor-pointer text-base transition duration-300 hover:scale-105 hover:shadow-lg">
+   
+ <a href="adminboard.blade.php">
     Sign In
+    </a>
+    
   </button>
   <div class="mt-4">
     <a href="#" class="text-xs text-cyan-400 hover:underline">Forgot password?</a>
@@ -73,7 +78,7 @@
 </form>
 
 <div class="mt-6">
-  <a href="#" class="text-xs text-gray-400 hover:text-cyan-400 transition">← Back to home</a>
+  <a href="index.blade.php" class="text-xs text-gray-400 hover:text-cyan-400 transition">← Back to home</a>
 </div>
 
 

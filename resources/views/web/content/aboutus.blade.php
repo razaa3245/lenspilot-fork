@@ -1,117 +1,127 @@
-<!DOCTYPE html>
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About Us | VirtualLens</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@include('web.layouts.navbar')
 
-<body class="bg-gradient-to-tr from-cyan-500 via-blue-700 to-purple-800 text-white font-poppins min-h-screen overflow-x-hidden relative">
+<main class="relative z-10 max-w-7xl mx-auto px-6 py-20 bg-gradient-to-br from-white via-slate-50 to-cyan-50 text-slate-800 font-sans min-h-screen overflow-x-hidden">
 
-  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+  <!-- Title -->
 
-  <main class="relative z-10 max-w-7xl mx-auto px-6 py-20">
+  <div class="text-center mb-20">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-gray-700 to-gray-900">
+    About Us
+  </h1>
+    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+      Shaping the future of eyewear with AI + AR — blending innovation and human vision.
+    </p>
+  </div>
 
-<!-- Title -->
-<div class="text-center mb-20">
-  <h1 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">About Us</h1>
-  <p class="mt-4 text-lg text-gray-200 max-w-2xl mx-auto">
-    Empowering retailers with futuristic AR and AI technologies for next-gen eyewear experiences.
+  <!-- About Cards -->
+
+  <div class="grid md:grid-cols-3 gap-10">
+    <div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-md hover:shadow-cyan-200 hover:-translate-y-2 transition-all duration-500">
+      <h2 class="text-2xl font-bold mb-4 text-black-700">Our Vision</h2>
+      <p class="text-slate-600 leading-relaxed">
+        Redefining eyewear shopping through immersive, accessible, and personalized AR technology.
+      </p>
+    </div>
+
+<div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-md hover:shadow-blue-200 hover:-translate-y-2 transition-all duration-500">
+  <h2 class="text-2xl font-bold mb-4 text-black-700">Our Mission</h2>
+  <p class="text-slate-600 leading-relaxed">
+    To empower retailers with intelligent, data-driven AR tools that elevate every customer's eyewear experience.
   </p>
 </div>
 
-<!-- About Cards -->
-<div class="grid md:grid-cols-3 gap-10">
-  <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all duration-500">
-    <h2 class="text-2xl font-bold mb-4 text-cyan-300">Our Vision</h2>
-    <p class="text-gray-200 leading-relaxed">
-      Redefine eyewear shopping by blending real and virtual worlds through immersive AR experiences.
-    </p>
+<div class="bg-white border border-slate-200 p-8 rounded-3xl shadow-md hover:shadow-indigo-200 hover:-translate-y-2 transition-all duration-500">
+  <h2 class="text-2xl font-bold mb-4 text-black-700">Why Choose Us?</h2>
+  <p class="text-slate-600 leading-relaxed">
+    Trusted by top optical brands — our secure, elegant AR integrations redefine visual engagement.
+  </p>
+</div>
   </div>
 
-  <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all duration-500">
-    <h2 class="text-2xl font-bold mb-4 text-blue-400">Our Mission</h2>
-    <p class="text-gray-200 leading-relaxed">
-      Build a seamless, intelligent platform that connects customers and retailers through AR try-ons.
-    </p>
-  </div>
+  <!-- AR Feature -->
 
-  <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all duration-500">
-    <h2 class="text-2xl font-bold mb-4 text-purple-400">Why Choose Us?</h2>
-    <p class="text-gray-200 leading-relaxed">
-      Trusted by top optical brands — fast, secure, and elegant AR integration with stunning visuals.
-    </p>
-  </div>
+  <section class="mt-24 grid md:grid-cols-2 gap-16 items-center">
+    <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-cyan-200 hover:-translate-y-2 transition-all duration-500">
+      <h2 class="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-700">Immersive AR Experience</h2>
+      <p class="text-slate-600 mb-6 leading-relaxed">
+        Our AR engine provides ultra-realistic, app-free virtual try-ons — fast, precise, and powered by AI.
+      </p>
+      <ul class="text-slate-700 space-y-2">
+        
+        <li> Seamless mobile compatibility</li>
+        <li> AI facial mapping accuracy</li>
+        <li> One-scan QR integration</li>
+      </ul>
+    </div>
+
+<div class="relative">
+  <img src="{{ asset('images/img1.jpeg') }}" alt="AR Illustration"
+       class="rounded-3xl border border-slate-200 shadow-lg hover:shadow-cyan-300 hover:scale-105 transition-transform duration-700">
 </div>
 
-<!-- Trusted By -->
-<div class="mt-20 text-center">
-  <h2 class="text-3xl font-bold text-cyan-400 mb-6">Trusted By</h2>
-  <div class="flex flex-wrap justify-center gap-10">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="w-24 opacity-80 hover:opacity-100 transition" alt="Nike">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Apple_logo_black.svg" class="w-16 opacity-80 hover:opacity-100 transition" alt="Apple">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="w-24 opacity-80 hover:opacity-100 transition" alt="Microsoft">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Google_2015_logo.svg" class="w-28 opacity-80 hover:opacity-100 transition" alt="Google">
-  </div>
-</div>
 
-<!-- AR Feature -->
-<section class="mt-24 grid md:grid-cols-2 gap-16 items-center">
-  <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-lg hover:scale-105 transition-all duration-500">
-    <h2 class="text-3xl font-bold mb-4 text-blue-400">Immersive AR Experience</h2>
-    <p class="text-gray-200 mb-6 leading-relaxed">
-      Our proprietary AR technology lets users virtually try lenses in real time — accurate, fast, and app-free. 
-      Customers can instantly preview eyewear and share their look with one tap.
-    </p>
-    <ul class="text-gray-300 space-y-3">
-      <li>⚡ Real-time rendering with precision tracking</li>
-      <li>📱 Mobile-first try-on experience</li>
-      <li>🧠 AI-powered face adaptation</li>
-      <li>🚀 Fast QR scan-to-try integration</li>
-    </ul>
-  </div>
-  <div class="relative">
-    <img src="{{ asset('images/img1.jpeg') }}" height="370" width="770"
-         alt="AR Illustration" 
-         class="rounded-3xl border border-cyan-400/30 shadow-lg hover:scale-105 transition-transform duration-700">
-  </div>
-</section>
+  </section>
 
-<!-- Team Section -->
+  <!-- Team Section -->
+
 <section class="mt-32 text-center">
-  <h2 class="text-4xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Meet the Team</h2>
-  <p class="text-gray-300 mb-12">The creators behind VirtualLens — where vision meets innovation.</p>
+  <h2 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-700 to-indigo-700">
+    Meet the Team
+  </h2>
+  <p class="text-slate-600 mb-12">The innovators bringing vision to life through technology.</p>
 
   <div class="grid md:grid-cols-3 gap-10 justify-items-center">
-    <div class="relative group w-72 h-96 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg hover:scale-105 transition-all duration-500">
-      <img src="public/images/image.jpg" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition" alt="Team Member">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
-        <h3 class="text-xl font-bold text-cyan-300">Syed Hunain Ahmed</h3>
-        <p class="text-gray-300 text-sm">Lead AR Engineer</p>
+    <!-- Team Card 1 -->
+    <div class="relative group w-72 h-96 bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden transform transition-all duration-700 hover:-translate-y-6 hover:shadow-2xl hover:shadow-cyan-300">
+      <img src="{{ asset('images/hunain.png') }}" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out" alt="Team Member">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-800/20 to-transparent opacity-90 group-hover:opacity-100 transition-all duration-700"></div>
+      <div class="absolute inset-x-0 bottom-0 p-6 transform group-hover:-translate-y-2 transition-transform duration-700">
+        <h3 class="text-lg font-bold text-white">Syed Hunain Ahmed</h3>
+        <p class="text-slate-200 text-sm">Lead AR Engineer</p>
       </div>
+      
     </div>
 
-    <div class="relative group w-72 h-96 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg hover:scale-105 transition-all duration-500">
-      <img src="https://images.unsplash.com/photo-1544725176-7c40e5a2c9f9" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition" alt="Team Member">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
-        <h3 class="text-xl font-bold text-blue-300">Muhammad Shoaib Akhtar</h3>
-        <p class="text-gray-300 text-sm">Frontend  Designer</p>
-      </div>
-    </div>
+<!-- Team Card 2 -->
+<div class="relative group w-72 h-96 bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden transform transition-all duration-700 hover:-translate-y-6 hover:shadow-2xl hover:shadow-blue-300">
+  <img src="{{ asset('images/shoaib.png') }}" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out" alt="Team Member">
+  <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-800/20 to-transparent opacity-90 group-hover:opacity-100 transition-all duration-700"></div>
+  <div class="absolute inset-x-0 bottom-0 p-6 transform group-hover:-translate-y-2 transition-transform duration-700">
+    <h3 class="text-lg font-bold text-white">Muhammad Shoaib Akhtar</h3>
+    <p class="text-slate-200 text-sm">Frontend Designer</p>
+  </div>
+  
+</div>
 
-    <div class="relative group w-72 h-96 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg hover:scale-105 transition-all duration-500">
-      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition" alt="Team Member">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
-        <h3 class="text-xl font-bold text-purple-300">Muhammad Ahmed Raza</h3>
-        <p class="text-gray-300 text-sm">AI/Computer Vision Specialist</p>
-      </div>
-    </div>
+<!-- Team Card 3 -->
+<div class="relative group w-72 h-96 bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden transform transition-all duration-700 hover:-translate-y-6 hover:shadow-2xl hover:shadow-indigo-300">
+  <img src="{{ asset('images/ahmed.png') }}" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out" alt="Team Member">
+  <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-800/20 to-transparent opacity-90 group-hover:opacity-100 transition-all duration-700"></div>
+  <div class="absolute inset-x-0 bottom-0 p-6 transform group-hover:-translate-y-2 transition-transform duration-700">
+    <h3 class="text-lg font-bold text-white">Muhammad Ahmed Raza</h3>
+    <p class="text-slate-200 text-sm">AI / Computer Vision Specialist</p>
+  </div>
+  
+</div>
+
+
   </div>
 </section>
 
 
-  </main>
-</body>
-</html>
+  <!-- Trusted By -->
+
+  <section class="mt-24 flex justify-center">
+    <div class="text-center bg-white border border-slate-200 rounded-3xl p-10 shadow-md hover:shadow-cyan-200 hover:-translate-y-2 transition-all duration-500 w-full md:w-3/4 lg:w-2/3">
+      <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-700 mb-6">Trusted By</h2>
+      <div class="flex flex-wrap justify-center gap-10">
+        <img src="{{ asset('images/company2.png') }}" class="w-24 opacity-70 hover:opacity-100 transition" alt="Nike">
+        <img src="{{ asset('images/company3.jpg') }}" class="w-16 opacity-70 hover:opacity-100 transition" alt="Apple">
+        <img src="{{ asset('images/company4.jpg') }}" class="w-24 opacity-70 hover:opacity-100 transition" alt="Microsoft">
+        <img src="{{ asset('images/company4.png') }}" class="w-28 opacity-70 hover:opacity-100 transition" alt="Google">
+      </div>
+    </div>
+  </section>
+</main>
+@include('web.layouts.footer')
