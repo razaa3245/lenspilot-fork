@@ -4,7 +4,7 @@
     <div class="flex-1 min-w-[300px] relative text-center">
       <div class="absolute inset-0 bg-gradient-radial from-blue-400/30 to-transparent rounded-2xl z-0"></div>
       <img
-        src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=80"
+        src="{{ asset('images\cuttingar.jpeg') }}"
         alt="Contact Lenses and Eyewear Technology Showcase"
         class="w-full rounded-2xl relative z-10"
       >
@@ -70,70 +70,106 @@
   </div>
 </section>
 
-<!-- USE CASES SECTION -->
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-<section id="use-cases" class="py-20 bg-white font-sans">
-  <div class="max-w-6xl mx-auto text-center">
-    <h2 class="text-3xl mb-2 font-bold">
-      Built for Every <span class="text-blue-600">Eyewear Business</span>
+<section id="use-cases" class="relative py-24 bg-gradient-to-b from-[#f8fafc] via-[#eef2ff] to-[#dbeafe] font-sans overflow-hidden">
+  <!-- Background glow -->
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.15),_transparent_60%)] blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto text-center relative z-10 px-6">
+    <!-- Header -->
+    <h2 class="text-5xl font-extrabold text-gray-900 mb-4">
+      Built for Every <span class="text-[#2563eb]">Eyewear Business</span>
     </h2>
-    <p class="text-gray-600 mb-12">Whether you're a retailer, brand, or platform, we have the perfect solution.</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
-      <!-- Card 1 -->
-      <div class="bg-gray-50 rounded-xl p-7 shadow-md hover:-translate-y-1 transition">
-        <div class="text-blue-600 mb-2">
-          <svg class="w-8 h-8 inline"  viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <p class="text-gray-600 text-lg mb-16 max-w-2xl mx-auto">
+      Whether you're a retailer, brand, or platform, we provide innovative solutions designed to boost engagement and sales.
+    </p>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Card -->
+      <div class="group bg-white/70 backdrop-blur-xl rounded-2xl border border-white/50 shadow-xl p-8 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-white/90">
+        <div class="bg-blue-100 w-14 h-14 flex items-center justify-center rounded-xl mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
         </div>
-        <h3 class="text-xl mb-2 font-semibold">Optical Retailers</h3>
-        <p class="text-gray-600 mb-3">Enhance in-store and online shopping with virtual try-on kiosks and web integration.</p>
-        <ul class="pl-6 text-blue-600 list-disc space-y-1">
-          <li>Increase foot traffic</li>
-          <li>Boost online conversions</li>
-          <li>Reduce fitting time</li>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Optical Retailers</h3>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+          Enhance both in-store and online shopping with interactive AR try-on kiosks and smooth web integration.
+        </p>
+        <ul class="text-blue-600 space-y-1 font-medium">
+          <li>• Increase foot traffic</li>
+          <li>• Boost online conversions</li>
+          <li>• Reduce fitting time</li>
         </ul>
       </div>
-      <!-- Card 2 -->
-      <div class="bg-gray-50 rounded-xl p-7 shadow-md">
-        <div class="text-blue-600 mb-2">
-          <svg class="w-8 h-8 inline" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+
+      <!-- Card -->
+      <div class="group bg-white/70 backdrop-blur-xl rounded-2xl border border-white/50 shadow-xl p-8 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-white/90">
+        <div class="bg-blue-100 w-14 h-14 flex items-center justify-center rounded-xl mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
         </div>
-        <h3 class="text-xl mb-2 font-semibold">Eyewear Brands</h3>
-        <p class="text-gray-600 mb-3">Showcase your entire collection with immersive virtual experiences.</p>
-        <ul class="pl-6 text-blue-600 list-disc space-y-1">
-          <li>Expand product discovery</li>
-          <li>Build brand engagement</li>
-          <li>Global reach</li>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Eyewear Brands</h3>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+          Showcase your full collection with immersive, branded virtual experiences that elevate product discovery.
+        </p>
+        <ul class="text-blue-600 space-y-1 font-medium">
+          <li>• Expand product discovery</li>
+          <li>• Build brand engagement</li>
+          <li>• Global reach</li>
         </ul>
       </div>
-      <!-- Card 3 -->
-      <div class="bg-gray-50 rounded-xl p-7 shadow-md">
-        <div class="text-blue-600 mb-2">
-          <svg class="w-8 h-8 inline" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+
+      <!-- Card -->
+      <div class="group bg-white/70 backdrop-blur-xl rounded-2xl border border-white/50 shadow-xl p-8 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-white/90">
+        <div class="bg-blue-100 w-14 h-14 flex items-center justify-center rounded-xl mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
         </div>
-        <h3 class="text-xl mb-2 font-semibold">E-commerce Platforms</h3>
-        <p class="text-gray-600 mb-3">Integrate seamlessly into your existing online store infrastructure.</p>
-        <ul class="pl-6 text-blue-600 list-disc space-y-1">
-          <li>Easy integration</li>
-          <li>Lower return rates</li>
-          <li>Higher satisfaction</li>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-3">E-commerce Platforms</h3>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+          Integrate AR try-ons directly into your store, reducing returns and boosting customer satisfaction.
+        </p>
+        <ul class="text-blue-600 space-y-1 font-medium">
+          <li>• Easy integration</li>
+          <li>• Lower return rates</li>
+          <li>• Higher satisfaction</li>
         </ul>
       </div>
-      <!-- Card 4 -->
-      <div class="bg-gray-50 rounded-xl p-7 shadow-md">
-        <div class="text-blue-600 mb-2">
-          <svg class="w-8 h-8 inline" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+
+      <!-- Card -->
+      <div class="group bg-white/70 backdrop-blur-xl rounded-2xl border border-white/50 shadow-xl p-8 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-white/90">
+        <div class="bg-blue-100 w-14 h-14 flex items-center justify-center rounded-xl mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
         </div>
-        <h3 class="text-xl mb-2 font-semibold">Marketplaces</h3>
-        <p class="text-gray-600 mb-3">Offer virtual try-on across multiple vendors and brands.</p>
-        <ul class="pl-6 text-blue-600 list-disc space-y-1">
-          <li>Unified experience</li>
-          <li>Competitive advantage</li>
-          <li>Increased sales</li>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Marketplaces</h3>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+          Bring AR try-on experiences to multiple brands and vendors for a unified, high-conversion platform.
+        </p>
+        <ul class="text-blue-600 space-y-1 font-medium">
+          <li>• Unified experience</li>
+          <li>• Competitive advantage</li>
+          <li>• Increased sales</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- CTA SECTION -->
 <section class="py-24 bg-gradient-to-br from-blue-600 to-blue-900 text-white font-sans">
