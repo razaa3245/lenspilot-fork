@@ -21,7 +21,7 @@ Route::get('/shopkeeper.blade.php', function () {
 Route::get('/features.blade.php', function () {
     return view('web/content/feature');
 });
-Route::get('/adminboard.blade.php', function () {
+Route::get('/adminboard', function () {
     return view('web/content/adminboard');
 });
 Route::get('/index.blade.php', function () {
@@ -32,4 +32,9 @@ Route::get('/contact.blade.php', function () {
 });
 Route::get('/catalog.blade.php', function () {
     return view('web/content/catalog');
+});
+
+
+Route::get('/otp', function () {
+    return view('auth/verify-otp');
 });
