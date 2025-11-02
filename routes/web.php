@@ -41,5 +41,14 @@ Route::get('/otp', function () {
 Route::get('/tryon', function () {
     return view('tryons/index');
 });
+Route::get('/shopkeeper', function () {
+    return view('shopkeeper/index');
+});
+Route::get('/qr-code', function () {
+    return view('qrcodes/index');
+});
+Route::get('/lenses', function () {
+    return view('lense/index');
+});
 
 
