@@ -18,8 +18,8 @@
 <div class="flex items-center gap-3">
       <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
       <a href="{{ route('home') }}" class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech </a>
-                 
-         
+
+
     </div>
     <a href="signup.blade.php" class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">Logout</a>
   </header>
@@ -138,7 +138,7 @@
         </div>
         <button class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 hover:scale-105">Edit</button>
       </div>
-      
+
     </div>
   </div>
 

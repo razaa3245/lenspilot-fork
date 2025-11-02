@@ -38,3 +38,8 @@ Route::get('/catalog.blade.php', function () {
 Route::get('/otp', function () {
     return view('auth/verify-otp');
 });
+Route::get('/tryon', function () {
+    return view('tryons/index');
+});
+
+
