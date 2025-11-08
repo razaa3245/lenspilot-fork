@@ -89,6 +89,7 @@ class LoginController extends Controller
             $user = Auth::user();
 
             // Check approval (assuming is_approved boolean column exists)
+            //todo in frontend when login api is calling do that when the response of the api come then check that &response->role=='shopkeeper' then redirect it to shopkeeper dashboard and if the response->role == 'admin' then redirect it to admin dashboard we can also do that using auth, but this is easy use it
             if ($user->type === 'shopkeeper' && isset($user->is_approved) && !$user->is_approved) {
                 Auth::logout();
                 return back()->withErrors(['email' => 'Your account is pending admin approval.']);

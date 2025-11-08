@@ -9,7 +9,7 @@ class QrCode extends Model
 {
     use HasFactory;
 
-    protected $table = 'qrcodes';
+    protected $table = 'qr_codes';
     protected $primaryKey = 'qrcode_id';
 
     protected $fillable = [
