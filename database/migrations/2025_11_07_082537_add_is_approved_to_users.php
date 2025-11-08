@@ -9,12 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        // Schema::table('users', function (Blueprint $table) {
-        //     $table->string('type')->default('user'); // 'user' or 'admin'
-        // });
-    }
+    public function up()
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->boolean('is_approved')->default(false);
+    });
+}
 
     /**
      * Reverse the migrations.

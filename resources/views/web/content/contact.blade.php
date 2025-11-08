@@ -17,25 +17,23 @@
       <div class="w-full max-w-md bg-gradient-to-b from-blue-600 to-blue-500 rounded-[2rem] p-10 shadow-2xl text-white hover:shadow-blue-300/50 hover:-translate-y-2 transition-all duration-500">
         <h2 class="text-xl font-semibold mb-6 text-center">Please fill this form</h2>
 
-        <form action="#" method="POST" class="space-y-5">
-          @csrf
-          <input type="text" name="name" placeholder="Full Name" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
-          <input type="email" name="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
-          <input type="tel" name="phone" placeholder="Phone Number" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
-          
-          <select name="service" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-            <option value="">Service You Want</option>
-            <option value="lens_fitting">Lens Fitting</option>
-            <option value="virtual_tryon">Virtual Try-On</option>
-            <option value="subscription">Subscription Support</option>
-          </select>
+      <form action="{{ route('contact.submit') }}" method="POST" class="space-y-5">
+        @csrf
+        <input type="text" name="name" placeholder="Full Name" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+        <input type="email" name="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+        <input type="tel" name="phone" placeholder="Phone Number" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+        <select name="service" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+          <option value="">Service You Want</option>
+          <option value="lens_fitting">Lens Fitting</option>
+          <option value="virtual_tryon">Virtual Try-On</option>
+          <option value="subscription">Subscription Support</option>
+        </select>
+        <textarea name="message" rows="3" placeholder="Message" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none"></textarea>
+        <button type="submit" class="w-full bg-white text-blue-600 font-semibold py-3 rounded-lg shadow-md hover:bg-blue-50 hover:shadow-lg transition-all duration-300">
+          Send Message
+        </button>
+      </form>
 
-          <textarea name="message" rows="3" placeholder="Message" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none"></textarea>
-
-          <button type="submit" class="w-full bg-white text-blue-600 font-semibold py-3 rounded-lg shadow-md hover:bg-blue-50 hover:shadow-lg transition-all duration-300">
-            Send Message
-          </button>
-        </form>
       </div>
 
       <!-- Right Contact Info -->
@@ -84,6 +82,13 @@
 
     </div>
   </div>
+  @if(session('success'))
+    <script>
+        alert("{{ session('success') }}");
+    </script>
+@endif
+
+
 
 @include('web.layouts.footer')
 </body>

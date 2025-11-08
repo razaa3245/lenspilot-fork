@@ -18,7 +18,7 @@
     </h2>
     <p class="mb-8 text-gray-600 text-base font-medium">Where would you like to go next?</p>
     <div class="flex justify-center gap-4 mb-6">
-      <a href="{{ route('adminboard') }}">
+      <a href="{{ route('admin.adminboard') }}">
         <button class="bg-blue-600 text-white px-5 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition-all">Go to Dashboard</button>
       </a>
       <a href="{{ route('home') }}">

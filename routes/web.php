@@ -1,81 +1,20 @@
 <?php
 
-// use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\SubscriptionController;
-
-
-// Route::get('/', function () {
-//     return view('web.index');
-// })->name('home');
-
-// Route::get('/aboutus.blade.php', function () {
-//     return view('web/content/aboutus');
-// });
-// Route::get('/signup', function () {
-//     return view('auth/signup');
-// });
-// Route::get('/price.blade.php', function () {
-//     return view('web/content/price');
-// });
-// Route::get('/shopkeeper.blade.php', function () {
-//     return view('web/content/shopkeeper');
-// });
-// Route::get('/features.blade.php', function () {
-//     return view('web/content/feature');
-// });
-// Route::get('/adminboard', function () {
-//     return view('web/content/adminboard');
-// });
-// Route::get('/index.blade.php', function () {
-//     return view('web/index');
-// });
-// Route::get('/contact.blade.php', function () {
-//     return view('web/content/contact');
-// });
-// Route::get('/catalog.blade.php', function () {
-//     return view('web/content/catalog');
-// });
-
-
-// Route::get('/otp', function () {
-//     return view('auth/verify-otp');
-// });
-// Route::get('/tryon', function () {
-//     return view('tryons/index');
-// });
-// Route::get('/shopkeeper', function () {
-//     return view('shopkeeper/index');
-// });
-// Route::get('/qr-code', function () {
-//     return view('qrcodes/index');
-// });
-// Route::get('/lenses', function () {
-//     return view('lense/index');
-// });
-
-// Route::get('/start-subscription/{plan}', [SubscriptionController::class, 'start'])
-//     ->name('subscription.start');
-
-// Route::get('/login', function () {
-//     return view('auth.signup'); // This is your combined login/signup page
-// })->name('login');
-
-// Route::get('/after-login-choice', function () {
-//     return view('auth.after-login-choice');
-// })->name('after-login-choice');
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 
 // Main landing pages
 Route::get('/', function () { return view('web.index'); })->name('home');
 Route::get('/aboutus', function () { return view('web.content.aboutus'); })->name('aboutus');
 Route::get('/features', function () { return view('web.content.feature'); })->name('features');
 Route::get('/price', function () { return view('web.content.price'); })->name('pricing');
-Route::get('/contact', function () { return view('web.content.contact'); })->name('contact');
+//Route::get('/contact', function () { return view('web.content.contact'); })->name('contact');
 Route::get('/catalog', function () { return view('web.content.catalog'); })->name('catalog');
 
 // Combined login/signup page (GET)
@@ -89,9 +28,15 @@ Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 // OTP Verification page (GET)
 Route::get('/otp', function () { return view('auth.verify-otp'); })->name('otp');
 
+// // For admin dashboard
+// Route::middleware(['auth'])->get('/adminboard', function () {
+//     return view('admin.adminboard'); // your actual dashboard view path
+// })->name('adminboard');
+Route::get('/admin/adminboard', [AdminController::class, 'dashboard'])->name('admin.adminboard');
+
 // Areas protected by session authentication—only for logged-in users
 Route::middleware('auth')->group(function () {
-    Route::get('/adminboard', function () { return view('admin.adminboard'); })->name('adminboard');
+    //Route::get('/adminboard', function () { return view('adminboard'); })->name('admin.adminboard');
     Route::get('/tryon', function () { return view('tryons.index'); });
     Route::get('/shopkeeper', function () { return view('shopkeeper.index'); });
     Route::get('/qr-code', function () { return view('qrcodes.index'); });
@@ -101,6 +46,8 @@ Route::middleware('auth')->group(function () {
     // Payment gateway page (after login)
     Route::get('/payment/{plan}', [PaymentController::class, 'show'])->name('subscription.payment');
 });
+Route::get('/admin/board', [AdminController::class, 'dashboard'])->name('admin.adminboard');
+
 
 // Display the after-login-choice page (only for logged in users)
 Route::get('/after-login-choice', function () {
@@ -117,3 +64,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // // User management routes
 // Route::get('/dashboard', [UserController::class, 'Dashboard'])
 //     ->middleware('auth','verified')->name('dashboard');
+
+// show contact page (GET)
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+// process contact form (POST)
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+//Route::post('/contact', [ContactController::class, 'submit']);
+

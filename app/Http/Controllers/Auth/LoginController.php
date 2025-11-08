@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
+// namespace App\Http\Controllers\Auth;
+// use Illuminate\Support\Facades\Auth;
+// use App\Models\User;
+// use Illuminate\Http\Request;
+// use App\Http\Controllers\Controller;
+// use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
-{
+// class LoginController extends Controller
+// {
 //    public function login(Request $request)
 //     {
 //         $request->validate([
@@ -30,32 +30,90 @@ class LoginController extends Controller
 //             'token' => $token
 //         ]);
 //     }
-public function login(Request $request)
+// public function login(Request $request)
+// {
+//     $request->validate([
+//         'email' => 'required|email',
+//         'password' => 'required',
+//     ]);
+
+//     $credentials = $request->only('email', 'password');
+
+//     if (Auth::attempt($credentials)) {
+//         $request->session()->regenerate(); // Prevent session fixation
+//         return redirect('/after-login-choice'); // Or dashboard, as desired
+//     }
+
+//     // Failed: send back with error
+//     return back()->withErrors(['email' => 'Invalid credentials']);
+// }
+// public function showLoginForm() {
+//     return view('auth.signup'); // render your combined login/signup page
+// }
+
+// public function logout(Request $request) {
+//     Auth::logout();
+//     $request->session()->invalidate();
+//     $request->session()->regenerateToken();
+//     return redirect('/login');
+// }
+
+namespace App\Http\Controllers\Auth;
+
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+
+class LoginController extends Controller
 {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    $credentials = $request->only('email', 'password');
-
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate(); // Prevent session fixation
-        return redirect('/after-login-choice'); // Or dashboard, as desired
+    // Show login/signup view
+    public function showLoginForm()
+    {
+        return view('auth.signup'); // or your custom login blade view
     }
 
-    // Failed: send back with error
-    return back()->withErrors(['email' => 'Invalid credentials']);
-}
-public function showLoginForm() {
-    return view('auth.signup'); // render your combined login/signup page
+    // Handle login and role/approval checks
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+
+            // Check approval (assuming is_approved boolean column exists)
+            if ($user->type === 'shopkeeper' && isset($user->is_approved) && !$user->is_approved) {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Your account is pending admin approval.']);
+            }
+
+            // Route by role
+            if ($user->type === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->type === 'shopkeeper') {
+                return redirect()->route('shopkeeper.dashboard');
+            } else {
+                return redirect('/after-login-choice');
+            }
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
 }
 
-public function logout(Request $request) {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/login');
-}
-}
 
