@@ -75,6 +75,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Api\ShopkeeperController;
 
 // Static pages only
 Route::get('/', fn() => view('web.index'))->name('home');
@@ -98,6 +101,24 @@ Route::get('/admin/dashboard', function () {
     return view('admin.admindashboard');
 })->name('admin.dashboard');
 
+Route::prefix('subscription')->name('subscription.')->group(function () {
+    Route::get('/start', [SubscriptionController::class, 'start'])->name('start');
+    Route::post('/checkout', [SubscriptionController::class, 'checkout'])->name('checkout');
+    Route::get('/success', [SubscriptionController::class, 'success'])->name('success');
+    Route::get('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
+});
 
-// Handle signup form (POST)
-//Route::post('/signup', [RegisterController::class, 'register'])->name('signup.submit');
+
+//contact page routing
+Route::get('/contact', function () {
+    return view('web.content.contact');
+})->name('contact');
+
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
+
+Route::get('/shopkeeper/catalog', [ShopkeeperController::class, 'showCatalog'])->name('shopkeeper.catalog');
+
+
+Route::get('/price', function () {
+    return view('web.content.price'); // adjust path according to your structure
+})->name('price');

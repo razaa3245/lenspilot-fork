@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Lens;
 
 class AdminController extends Controller
 {
@@ -25,6 +26,8 @@ class AdminController extends Controller
         // Fetch real data from database
         $totalShops = User::where('type', 'shopkeeper')->count();
         $activeUsers = User::where('is_approved', true)->count();
+        $totallens = Lens::count();
+// This should ideally come from a Lenses model/table
         
         // Get recent shops
         $recentShops = User::where('type', 'shopkeeper')
@@ -51,7 +54,7 @@ class AdminController extends Controller
             'stats' => [
                 'total_shops' => $totalShops,
                 'active_users' => $activeUsers,
-                'lens_catalog' => 156, // From lenses table
+                'lens_catalog' => $totallens, // From lenses table
                 'monthly_revenue' => 45200
             ],
             'recent_shops' => $recentShops,

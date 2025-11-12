@@ -18,8 +18,8 @@
       <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VirtualLens</h1>
     </div>
     <nav class="flex gap-8 text-sm font-medium">
-      <a href="#" class="text-slate-700 hover:text-cyan-600 hover:underline transition-all duration-300">My Optical Shop</a>
-      <a href="index.blade.php" class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">Logout</a>
+      <a href="shopkeeper.blade.php" class="text-slate-700 hover:text-cyan-600 hover:underline transition-all duration-300">my dashboard</a>
+      <a href="signup.blade.php" onclick="logout()" class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">Logout</a>
     </nav>
   </header>
 
@@ -74,8 +74,11 @@
       </button>
     </div>
 
-    <p class="text-slate-500 text-sm mt-6">Catalogue URL:
-      <a href="#" class="text-cyan-600 hover:underline ml-1">https://virtual-lens.io/catalogue</a>
+    <p class="text-slate-500 text-sm mt-6">Catalogue: 
+      <a href="{{ route('shopkeeper.catalog') }}" class="btn btn-primary">
+    View Catalog
+</a>
+
     </p>
   </div>
 
@@ -89,9 +92,13 @@
 
       <div class="divide-y divide-slate-200">
         <button class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2"> Preview Try-On Experience</button>
-        <a href="price.blade.php">
-        <button class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2"> Upgrade Plan</button>
-      </a>
+        <!-- ✅ CORRECT (Using route name) -->
+<a href="{{ route('price') }}">
+    <button class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2">
+        Upgrade Plan
+    </button>
+</a>
+
       </div>
     </div>
 

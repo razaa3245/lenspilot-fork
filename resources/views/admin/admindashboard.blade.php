@@ -191,12 +191,12 @@
                 // Update UI with fetched data
                 updateDashboardUI(result.data);
             } else {
-                console.error('❌ Failed to load dashboard:', result.message);
+                console.error('Failed to load dashboard:', result.message);
                 alert('Failed to load dashboard data: ' + (result.message || 'Unknown error'));
                 window.location.href = '/signup';
             }
         } catch (error) {
-            console.error('🚨 Dashboard load error:', error);
+            console.error('Dashboard load error:', error);
             alert('Error loading dashboard. Please check your connection and try again.');
             document.getElementById('loading-spinner').innerHTML = 
                 '<p class="text-red-600">Failed to load dashboard. Please refresh the page.</p>';
