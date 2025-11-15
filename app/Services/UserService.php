@@ -2,14 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\User;
+use App\Mail\SendOtpMail;
+use App\Models\QrCode;
 use App\Models\Shopkeeper;
+use App\Models\User;
+use Exception;
+use SimpleSoftwareIO\QrCode\Facades\QrCode as QrCodeGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SendOtpMail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Exception;
 
 class UserService
 {
@@ -23,63 +27,65 @@ class UserService
         return User::findOrFail($id);
     }
 
-    public function registerUser(array $data)
-    {
-        // Start database transaction
-        DB::beginTransaction();
+public function registerUser(array $data)
+{
+    DB::beginTransaction();
 
-        try {
-            // Generate OTP
-            $otp = rand(100000, 999999);
+    try {
+        // Generate OTP
+        $otp = rand(100000, 999999);
 
-            // Create user
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'type'        => 'shopkeeper', // Default role
-                'is_approved' => false,
-                'password' => Hash::make($data['password']),
-                'otp' => $otp,
-                'otp_expires_at' => now()->addMinutes(10),
-                'remember_token' => Str::random(60),
-            ]);
+        // Create user
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'type' => 'shopkeeper',
+            'is_approved' => false,
+            'password' => Hash::make($data['password']),
+            'otp' => $otp,
+            'otp_expires_at' => now()->addMinutes(10),
+            'remember_token' => Str::random(60),
+        ]);
 
-            // If user is shopkeeper, create shopkeeper record
+        // Create shopkeeper record
+        $shopkeeper = Shopkeeper::create([
+            'user_id' => $user->id,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
+            'shop_name' => $data['shop_name'] ?? null,
+            'address' => $data['address'] ?? null,
+            'retailer_name' => $data['retailer_name'] ?? null,
+        ]);
 
-            //if (isset($data['type']) && $data['type'] === 'shopkeeper') {
-            $shopkeeper = Shopkeeper::create([
-                'user_id' => $user->id,  // Link to user
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'phone' => $data['phone'] ?? null,
-                'shop_name' => $data['shop_name'] ?? null,
-                'address' => $data['address'] ?? null,
-                'retailer_name' => $data['retailer_name'] ?? null,
+        // QR content (secure: no plain password)
+        $qrContent = "Shopkeeper Email: {$data['email']}";
 
-            ]);
-            //}
+        // Generate and store QR image
+        $fileName = 'qr_' . uniqid() . '.png';
+        $filePath = 'qr_codes/' . $fileName;
+        $qrImage = QrCodeGenerator::format('png')->size(300)->generate($qrContent);
+        Storage::disk('public')->put($filePath, $qrImage);
 
-            // Send OTP email
-            // Mail::to($user->email)->send(new SendOtpMail($user, $otp));
+        // Save QR image path to database
+        QrCode::create([
+            'shopkeeper_id' => $shopkeeper->id,
+            'qr_image' => $filePath,
+        ]);
 
-            // If everything successful, commit transaction
-            DB::commit();
+        DB::commit();
+        return $user;
 
-            return $user;
-        } catch (Exception $e) {
-            // Rollback transaction on error
-            DB::rollBack();
-
-            // Log error for debugging
-            \Log::error('User registration failed: ' . $e->getMessage(), [
-                'email' => $data['email'] ?? 'unknown',
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            // Re-throw exception to be handled by controller
-            throw new Exception('User registration failed: ' . $e->getMessage());
-        }
+    } catch (\Exception $e) {
+        DB::rollBack();
+        \Log::error('User registration failed: ' . $e->getMessage(), [
+            'email' => $data['email'] ?? 'unknown',
+            'trace' => $e->getTraceAsString()
+        ]);
+        throw new \Exception('User registration failed: ' . $e->getMessage());
     }
+}
+
 
 
     public function resendOtp($email)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lens;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -14,18 +15,19 @@ class AdminController extends Controller
     public function dashboard(Request $request)
     {
         $user = $request->user();
-        
+
         // Check if user is admin
         if ($user->type !== 'admin') {
             return response()->json([
                 'message' => 'Unauthorized access'
             ], 403);
         }
-        
+
         // Fetch real data from database
         $totalShops = User::where('type', 'shopkeeper')->count();
+        $totallens = Lens::count();
         $activeUsers = User::where('is_approved', true)->count();
-        
+
         // Get recent shops
         $recentShops = User::where('type', 'shopkeeper')
             ->where('is_approved', true)
@@ -41,7 +43,7 @@ class AdminController extends Controller
                     'status' => 'Active'
                 ];
             });
-        
+
         // Dashboard data
         $data = [
             'user' => [
@@ -51,7 +53,7 @@ class AdminController extends Controller
             'stats' => [
                 'total_shops' => $totalShops,
                 'active_users' => $activeUsers,
-                'lens_catalog' => 156, // From lenses table
+                'lens_catalog' => $totallens, // From lenses table
                 'monthly_revenue' => 45200
             ],
             'recent_shops' => $recentShops,
@@ -60,40 +62,40 @@ class AdminController extends Controller
                 ['name' => 'Ocean Blue', 'category' => 'Vibrant', 'color' => '#1E90FF']
             ]
         ];
-        
+
         return response()->json([
             'success' => true,
             'data' => $data
         ], 200);
     }
-    
+
     /**
      * Get all shops
      */
     public function getShops(Request $request)
     {
         $shops = User::where('type', 'shopkeeper')->get();
-        
+
         return response()->json([
             'success' => true,
             'shops' => $shops
         ], 200);
     }
-    
+
     /**
      * Approve shopkeeper
      */
     public function approveShopkeeper(Request $request, $id)
     {
         $user = User::find($id);
-        
+
         if (!$user || $user->type !== 'shopkeeper') {
             return response()->json(['message' => 'Shopkeeper not found'], 404);
         }
-        
+
         $user->is_approved = true;
         $user->save();
-        
+
         return response()->json([
             'message' => 'Shopkeeper approved successfully',
             'user' => $user
