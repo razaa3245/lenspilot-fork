@@ -33,7 +33,7 @@ class ShopkeeperController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'type' => $user->type,
-                'shop_name' => $user->shopname ?? 'danish optics'
+                'shop_name' => $user->name ?? 'danish optics'
             ],
             'stats' => [
                 'total_tryons' => 1247,
@@ -61,5 +61,5 @@ class ShopkeeperController extends Controller
         // You can pass dynamic data here later if needed
         return view('web.content.catalog');
     }
-
+   
 }

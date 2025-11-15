@@ -77,7 +77,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Api\ShopkeeperController;
+use App\Http\Controllers\ShopkeeperController;
 use App\Http\Controllers\LensController;
 
 // Static pages only
@@ -108,7 +108,7 @@ Route::prefix('subscription')->name('subscription.')->group(function () {
     Route::get('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
 });
 
-Route::get('/messages', function () {
+Route::get('/admin/messages', function () {
     return view('web.content.messages');
 })->name('messages');
 //contact page routing
@@ -162,3 +162,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+// Shopkeeper Approval Routes
+Route::get('/shopkeeper-approvals', [ShopkeeperController::class, 'index'])
+    ->name('shopkeeper.approvals.index');
+
+Route::get('/shopkeeper-approvals/get-pending', [ShopkeeperController::class, 'getPending'])
+    ->name('shopkeeper.approvals.getPending');
+
+Route::post('/shopkeeper-approvals/approve/{id}', [ShopkeeperController::class, 'approve'])
+    ->name('shopkeeper.approvals.approve');
+
+Route::post('/shopkeeper-approvals/decline/{id}', [ShopkeeperController::class, 'decline'])
+    ->name('shopkeeper.approvals.decline');
+
+Route::get('/shopkeeper-approvals/details/{id}', [ShopkeeperController::class, 'getDetails'])
+    ->name('shopkeeper.approvals.details');

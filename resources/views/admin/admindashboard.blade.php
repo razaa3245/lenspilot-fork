@@ -643,7 +643,6 @@
                 alert('Error deleting lens: ' + error.message);
             }
         }
-
         // ========================================
         // IMAGE PREVIEW
         // ========================================
@@ -852,6 +851,9 @@
             console.log('🧹 Local storage cleared');
             window.location.href = '/signup';
         }
+
+
+        
     </script>
 </body>
 </html>

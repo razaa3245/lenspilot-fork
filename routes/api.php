@@ -37,7 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
     Route::get('/admin/shops', [AdminController::class, 'getShops']);
     Route::post('/admin/approve/{id}', [AdminController::class, 'approveShopkeeper']);
-    
     // Shopkeeper dashboard API ✅ ADDED
     Route::get('/shopkeeper/dashboard', [ShopkeeperController::class, 'dashboard']);
 });
@@ -67,4 +66,7 @@ Route::prefix('admin/lenses')->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('admin/lenses', LensController::class);
 });
+
+
+
 
