@@ -16,10 +16,6 @@ class CheckAuthenticated
             return redirect()->guest(route('login'));
         }
 
-        if (Auth::check()) {
-            // preserve intended URL and redirect to named login route
-            return redirect()->guest(route('shopkeeper.dashboard'));
-        }
 
         return $next($request);
     }
