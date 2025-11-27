@@ -331,6 +331,7 @@ async function logout() {
                 'Accept': 'application/json'
             }
         });
+        localStorage.removeItem('auth_token');
 
         console.log('✅ Logout successful');
     } catch (error) {

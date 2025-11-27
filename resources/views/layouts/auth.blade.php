@@ -1,18 +1,20 @@
 <script>
+  const token = localStorage.getItem('auth_token');
+  const role = localStorage.getItem('user_role');
+  const path = window.location.pathname;
+
   // If no token → force signup
-  if (!localStorage.getItem('auth_token')) {
+  if (!token && path !== '/signup') {
     window.location.href = '/signup';
   }
+
   // If logged in as shopkeeper
-  else if (localStorage.getItem('auth_token') && localStorage.getItem('user_role') === 'shopkeeper') {
-    if (window.location.pathname === '/signup') {
-      window.location.href = '/shopkeeper/dashboard';
-    }
+  if (token && role === 'shopkeeper' && path === '/signup') {
+    window.location.href = '/shopkeeper/dashboard';
   }
+
   // If logged in as admin
-  else if (localStorage.getItem('auth_token') && localStorage.getItem('user_role') === 'admin') {
-    if (window.location.pathname === '/signup') {
-      window.location.href = '/admin/dashboard';
-    }
+  if (token && role === 'admin' && path === '/signup') {
+    window.location.href = '/admin/dashboard';
   }
 </script>

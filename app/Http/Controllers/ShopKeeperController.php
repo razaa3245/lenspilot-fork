@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Shopkeeper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,9 +23,8 @@ class ShopkeeperController extends Controller
     public function getPending()
     {
         try {
-            $shopkeepers = User::where('type', 'shopkeeper')
-                ->where('is_approved', 0)
-                ->orderBy('created_at', 'desc')
+            $shopkeepers = Shopkeeper::
+                orderBy('created_at', 'desc')
                 ->get();
 
             $data = $shopkeepers->map(function ($shopkeeper) {
@@ -53,7 +53,7 @@ class ShopkeeperController extends Controller
                     'shop_name' => $shopkeeper->shop_name ?? 'N/A',
                     'retailer_name' => $shopkeeper->retailer_name ?? 'N/A',
                     'address' => $shopkeeper->address ?? 'N/A',
-                    'phone_number' => $shopkeeper->phone_number ?? 'N/A',
+                    'phone_number' => $shopkeeper->phone ?? 'N/A',
                     'created_at' => date('F j, Y g:i A', $createdTime),
                     'time_ago' => $timeAgo,
                     'is_approved' => $shopkeeper->is_approved

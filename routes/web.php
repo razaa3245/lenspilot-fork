@@ -132,7 +132,7 @@ Route::get('/shopkeeper/catalog1', function () {
 
 // Subscription routes
 Route::get('/subscription/start', [SubscriptionController::class, 'start'])->name('subscription.start');
-Route::post('/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout')->middleware('auth');
+Route::post('/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
 Route::get('/subscription/success', [SubscriptionController::class, 'success'])->name('subscription.success');
 
 

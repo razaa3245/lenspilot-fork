@@ -6,11 +6,12 @@
   <title>Lens Catalogue | VirtualLens</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+@include('layouts.auth')
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex">
   <!-- SIDEBAR -->
-  <aside x-data="{ open: false }" 
-         :class="open ? 'w-64' : 'w-20'" 
+  <aside x-data="{ open: false }"
+         :class="open ? 'w-64' : 'w-20'"
          class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0">
 
     <!-- Top Section -->
@@ -101,7 +102,7 @@
           <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
           <a href="#" class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</a>
         </div>
-        
+
         <div class="flex items-center gap-4">
           <span id="admin-email" class="text-sm text-gray-600"></span>
         </div>
@@ -174,24 +175,29 @@
   <script>
     let allLenses = [];
     let currentFilter = 'all';
+let user = null;
+
+    const userInfo = localStorage.getItem('user_info');
+    if (userInfo) {
+      user = JSON.parse(userInfo);
+      console.log('User Info:', user.name);
+    } else {
+      console.log('No user info found');
+    }
 
     // Check authentication
     function checkAuth() {
       const token = localStorage.getItem('token');
       const adminEmail = localStorage.getItem('adminEmail');
-      
-      // For testing - comment these lines if you want to test without auth
-      // if (!token || !adminEmail) {
-      //   window.location.href = '/login';
-      //   return false;
-      // }
-      
+
+  
+
       // Display admin email
       if (adminEmail) {
         document.getElementById('admin-email').textContent = adminEmail;
         document.getElementById('admin-email-sidebar').textContent = adminEmail;
       } else {
-        document.getElementById('admin-email').textContent = 'Admin';
+        document.getElementById('admin-email').textContent = user.name;
         document.getElementById('admin-email-sidebar').textContent = 'Admin';
       }
       return true;
@@ -207,7 +213,7 @@
     // Fetch lenses from database
     async function fetchLenses() {
       const token = localStorage.getItem('token');
-      
+
       // Try different possible API endpoints
       const possibleEndpoints = [
         'http://127.0.0.1:8000/api/lenses',
@@ -222,12 +228,12 @@
       for (let endpoint of possibleEndpoints) {
         try {
           console.log(`📡 Trying endpoint: ${endpoint}`);
-          
+
           const headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           };
-          
+
           // Add token if available
           if (token) {
             headers['Authorization'] = `Bearer ${token}`;
@@ -243,7 +249,7 @@
           if (response.ok) {
             const data = await response.json();
             console.log('✅ Success! Data received:', data);
-            
+
             // Handle different response structures
             if (Array.isArray(data)) {
               allLenses = data;
@@ -255,14 +261,14 @@
               console.log('Unexpected data structure:', data);
               allLenses = [];
             }
-            
+
             console.log(`📦 Total lenses found: ${allLenses.length}`);
             displayLenses(allLenses);
             return; // Success, exit the function
           } else {
             const errorText = await response.text();
             console.log(`❌ Failed with status ${response.status}:`, errorText);
-            
+
             if (response.status === 401) {
               console.log('⚠️ Authentication failed');
               // Uncomment below to redirect to login
@@ -332,7 +338,7 @@
     // Create lens card HTML
     function createLensCard(lens) {
       console.log('🎨 Creating card for lens:', lens);
-      
+
       // Handle different possible field names from database
       const id = lens.id || lens.lens_id;
       const name = lens.name || lens.lens_name || 'Unnamed Lens';
@@ -368,7 +374,7 @@
     // Filter lenses
     function filterLenses(filter) {
       currentFilter = filter;
-      
+
       // Update button styles
       document.querySelectorAll('[id^="filter-"]').forEach(btn => {
         btn.className = 'px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300';
@@ -379,7 +385,7 @@
       if (filter === 'all') {
         displayLenses(allLenses);
       } else {
-        const filtered = allLenses.filter(lens => 
+        const filtered = allLenses.filter(lens =>
           lens.category && lens.category.toLowerCase() === filter.toLowerCase()
         );
         displayLenses(filtered);
@@ -434,9 +440,9 @@
         // ========================================
         async function logout() {
             console.log('🚪 Logging out...');
-            
+
             const token = localStorage.getItem('auth_token');
-            
+
             try {
                 await fetch('/api/logout', {
                     method: 'POST',
@@ -445,16 +451,16 @@
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 console.log('✅ Logout successful');
             } catch (error) {
                 console.error('⚠️ Logout error:', error);
             }
-            
+
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user_role');
             localStorage.removeItem('user_info');
-            
+
             console.log('🧹 Local storage cleared');
             window.location.href = '/signup';
         }

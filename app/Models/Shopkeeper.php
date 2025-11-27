@@ -30,6 +30,11 @@ class Shopkeeper extends Authenticatable
         return $this->hasMany(Lens::class, 'shop_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'shop_id', 'id');
