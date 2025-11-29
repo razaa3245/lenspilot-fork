@@ -14,18 +14,16 @@
 
   <div class="flex flex-col md:flex-row md:gap-8 lg:gap-12 justify-center items-stretch max-w-5xl mx-auto px-2 sm:px-6">
     <!-- BASIC PLAN -->
-    <!-- ✅ BASIC PLAN (FIXED) -->
     <div
       class="group w-full sm:w-[375px] md:w-80 bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-500 mx-auto md:mx-0 mb-6 md:mb-0">
       <div class="relative z-10 text-center">
         <h2 class="text-2xl font-bold text-gray-800">Basic</h2>
         <p class="text-3xl sm:text-4xl font-extrabold text-blue-600 mt-3">
-          $29.99
+          Rs25k
           <span class="text-sm text-gray-500 font-medium"> / 1 month</span>
         </p>
         <p class="text-gray-500 mt-2 mb-6">Perfect for small optical shops</p>
 
-        <!-- ✅ FIXED LINK -->
         <a href="{{ route('subscription.start', ['plan' => 'basic']) }}">
           <button
             class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition-all duration-300">
@@ -38,13 +36,12 @@
           <li>✓ Virtual try-on for unlimited customers</li>
           <li>✓ Unique QR code</li>
           <li>✓ Basic dashboard access</li>
-          <li>✓ Email support</li>
           <li>✓ Up to 50 lens SKUs</li>
         </ul>
       </div>
     </div>
 
-    <!-- ✅ PROFESSIONAL PLAN (FIXED) -->
+    <!-- PROFESSIONAL PLAN  -->
     <div
       class="group w-full sm:w-[375px] md:w-80 bg-gradient-to-b from-blue-600 to-blue-500 text-white rounded-2xl p-8 shadow-2xl hover:shadow-blue-300/60 hover:-translate-y-3 transition-all duration-500 mx-auto md:mx-0 mb-6 md:mb-0 relative">
       <div
@@ -54,12 +51,12 @@
       <div class="relative z-10 text-center">
         <h2 class="text-2xl font-bold">Professional</h2>
         <p class="text-3xl sm:text-4xl font-extrabold mt-3">
-          $79.99
+          Rs50k
           <span class="text-sm font-medium opacity-80"> / 6 Months</span>
         </p>
         <p class="opacity-80 mt-2 mb-6">For growing businesses</p>
 
-        <!-- ✅ FIXED LINK -->
+        <!-- FIXED LINK -->
         <a href="{{ route('subscription.start', ['plan' => 'professional']) }}">
           <button
             class="w-full bg-white text-blue-600 py-2.5 rounded-lg font-semibold shadow-md hover:bg-blue-50 transition-all duration-300">
@@ -71,25 +68,23 @@
           <li>✓ 6 months subscription</li>
           <li>✓ Everything in Basic</li>
           <li>✓ Advanced analytics</li>
-          <li>✓ Priority email support</li>
-          <li>✓ Custom branding options</li>
           <li>✓ Up to 200 lens SKUs</li>
         </ul>
       </div>
     </div>
 
-    <!-- ✅ ENTERPRISE PLAN (FIXED) -->
+    <!--  ENTERPRISE PLAN (FIXED) -->
     <div
       class="group w-full sm:w-[375px] md:w-80 bg-white border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-500 mx-auto md:mx-0">
       <div class="relative z-10 text-center">
         <h2 class="text-2xl font-bold text-gray-800">Enterprise</h2>
         <p class="text-3xl sm:text-4xl font-extrabold text-blue-600 mt-3">
-          $199.99
+          Rs100k
           <span class="text-sm text-gray-500 font-medium"> / 12 Months</span>
         </p>
         <p class="text-gray-500 mt-2 mb-6">Unlimited access for large chains</p>
 
-        <!-- ✅ FIXED LINK -->
+        <!--  FIXED LINK -->
         <a href="{{ route('subscription.start', ['plan' => 'enterprise']) }}">
           <button
             class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition-all duration-300">
@@ -104,7 +99,6 @@
           <li>✓ 24/7 priority support</li>
           <li>✓ Unlimited lens SKUs</li>
           <li>✓ Advanced customization</li>
-          <li>✓ API access</li>
         </ul>
       </div>
     </div>

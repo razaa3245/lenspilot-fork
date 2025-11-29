@@ -1,34 +1,13 @@
 <?php
-
-// namespace App\Http\Controllers;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Http\Request;
-
-// class SubscriptionController extends Controller {
-//     public function start($plan) {
-//         if (!Auth::check()) {
-//             // User NOT logged in: redirect to login page
-//             return redirect()->route('login');
-//         }
-//         // User IS logged in: redirect to payment gateway, passing plan
-//         return redirect()->route('subscription.payment', ['plan' => $plan]);
-//     }
-// }
-
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
-    /**
-     * Start subscription process
-     */
     public function start(Request $request)
     {
-        // ✅ Get plan from query parameter OR route parameter
+        // Get plan from query parameter OR route parameter
         $plan = $request->query('plan') ?? $request->route('plan') ?? 'basic';
         
         // Validate plan

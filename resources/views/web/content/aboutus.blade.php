@@ -89,17 +89,20 @@
   </section>
 
   <!-- Trusted By -->
-  <section class="mt-24 flex justify-center">
-    <div class="text-center bg-white border border-slate-200 rounded-3xl p-10 shadow-md hover:shadow-cyan-200 hover:-translate-y-2 transition-all duration-500 w-full md:w-3/4 lg:w-2/3">
-      <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-700 mb-6">Trusted By</h2>
-      <div class="flex flex-wrap justify-center gap-10">
-        <img src="{{ asset('images/company2.png') }}" class="w-24 opacity-70 hover:opacity-100 transition" alt="Nike">
-        <img src="{{ asset('images/company3.jpg') }}" class="w-16 opacity-70 hover:opacity-100 transition" alt="Apple">
-        <img src="{{ asset('images/company4.jpg') }}" class="w-24 opacity-70 hover:opacity-100 transition" alt="Microsoft">
-        <img src="{{ asset('images/company4.png') }}" class="w-28 opacity-70 hover:opacity-100 transition" alt="Google">
-      </div>
+<section id="trusted-partners" class="mt-24 flex justify-center">
+  <div class="text-center bg-white border border-slate-200 rounded-3xl p-10 shadow-md hover:shadow-cyan-200 hover:-translate-y-2 transition-all duration-500 w-full md:w-3/4 lg:w-2/3">
+    <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-700 mb-6">
+      Trusted By
+    </h2>
+    <div class="flex flex-wrap justify-center gap-10">
+      <img src="{{ asset('images/company2.png') }}" class="w-24 opacity-70 hover:opacity-100 transition" alt="Nike">
+      <img src="{{ asset('images/company3.jpg') }}" class="w-16 opacity-70 hover:opacity-100 transition" alt="Apple">
+      <img src="{{ asset('images/company4.jpg') }}" class="w-24 opacity-70 hover:opacity-100 transition" alt="Microsoft">
+      <img src="{{ asset('images/company4.png') }}" class="w-28 opacity-70 hover:opacity-100 transition" alt="Google">
     </div>
-  </section>
+  </div>
+</section>
+
 
 </main>
 

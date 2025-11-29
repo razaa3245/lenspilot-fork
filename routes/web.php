@@ -155,6 +155,16 @@ Route::prefix('admin')->group(function () {
 
 
 
+// routes/web.php
+Route::get('/price', function () {
+    return view('web.content.price');   // ← yahi sahi hai
+})->name('price');
+// routes/web.php
+Route::get('/contact-us', function () {
+    return view('web.content.contact');
+})->name('contactus');
+
+
 
 // In routes/web.php (for admin panel)
 Route::middleware(['auth'])->group(function () {
@@ -178,3 +188,4 @@ Route::post('/shopkeeper-approvals/decline/{id}', [ShopkeeperController::class, 
 
 Route::get('/shopkeeper-approvals/details/{id}', [ShopkeeperController::class, 'getDetails'])
     ->name('shopkeeper.approvals.details');
+
