@@ -443,16 +443,25 @@ const email = userInfo.email;
 
       console.log(`Card data - ID: ${id}, Name: ${name}, Price: ${price}, Color: ${color}`);
 
+      // Normalize image path/provider: allow full URLs or absolute paths, otherwise use /storage/
+      const imageUrl = lens.image ? (String(lens.image).startsWith('http') || String(lens.image).startsWith('/') ? lens.image : '/storage/' + lens.image) : null;
+
       return `
         <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
           <!-- Card Header -->
           <div class="relative bg-gradient-to-br from-gray-50 to-blue-50 p-6">
             ${isPopular ? '<span class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xs px-3 py-1 rounded-full font-bold shadow-md">⭐ Popular</span>' : ''}
             
-            <!-- Lens Color Display -->
-            <div class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow-lg relative" style="background-color: ${color}">
-              <div class="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent"></div>
-            </div>
+            <!-- Lens Image / Color Display -->
+            ${imageUrl ? `
+              <div class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow-lg relative overflow-hidden bg-white">
+                <img src="${imageUrl}" alt="${name}" class="w-full h-full object-cover" />
+              </div>
+            ` : `
+              <div class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow-lg relative" style="background-color: ${color}">
+                <div class="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent"></div>
+              </div>
+            `}
           </div>
 
           <!-- Card Body -->

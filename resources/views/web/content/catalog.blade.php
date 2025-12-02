@@ -463,11 +463,15 @@
       lenses.forEach(lens => {
         const lensId = lens.lens_id || lens.id;
         
-        // Determine image source
+        // Determine image source; if stored path is not a full URL, prefix with /storage/
         let imageHtml;
         if (lens.image) {
+          const imageUrl = lens.image.startsWith('http') || lens.image.startsWith('/')
+            ? lens.image
+            : '/storage/' + lens.image;
+
           imageHtml = `<div class="w-28 h-28 mx-auto rounded-full border-4 border-purple-100 overflow-hidden shadow-lg mb-4">
-            <img src="${lens.image}" alt="${lens.name}" class="w-full h-full object-cover">
+            <img src="${imageUrl}" alt="${lens.name}" class="w-full h-full object-cover">
           </div>`;
         } else {
           // Create colored circle based on lens color

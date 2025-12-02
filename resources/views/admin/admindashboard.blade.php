@@ -485,8 +485,10 @@
         lenses.forEach(lens => {
             const lensId = lens.lens_id || lens.id;
             
-            const imageHtml = lens.image 
-                ? `<img src="${lens.image}" alt="${lens.name}" class="w-14 h-14 rounded-xl object-cover border-2 border-gray-200 shadow-sm">`
+            // Ensure we render lens images correctly — if stored path doesn't start with http, prefix with /storage/
+            const imageUrl = lens.image ? (lens.image.startsWith('http') ? lens.image : '/storage/' + lens.image) : null;
+            const imageHtml = imageUrl 
+                ? `<img src="${imageUrl}" alt="${lens.name}" class="w-14 h-14 rounded-xl object-cover border-2 border-gray-200 shadow-sm">`
                 : `<div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-md">${lens.name.charAt(0).toUpperCase()}</div>`;
             
             const lensHTML = `

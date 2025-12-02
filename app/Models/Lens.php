@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 
 class Lens extends Model
@@ -25,6 +26,26 @@ class Lens extends Model
         'image',
     ];
 
+
+    // Append computed URL so API responses include convenient resolved path
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->attributes['image'] ?? null;
+
+        if (!$image) {
+            return null;
+        }
+
+        // If it's already an absolute URL or absolute path, return as-is
+        if (preg_match('/^https?:\/\//i', $image) || str_starts_with($image, '/')) {
+            return $image;
+        }
+
+        // Otherwise return public storage URL (e.g. /storage/..)
+        return '/storage/' . ltrim($image, '/');
+    }
 
     public function shopkeeper()
     {

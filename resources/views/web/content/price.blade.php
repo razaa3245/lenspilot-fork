@@ -1,11 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VisionTech Pricing</title>
+  
   <script src="https://cdn.tailwindcss.com"></script>
+  
 </head>
+
 <body class="bg-gradient-to-br from-slate-50 via-white to-slate-100 font-sans antialiased">
 
   <!-- Header Section -->
@@ -32,262 +36,253 @@
   </div>
 
   <!-- Pricing Cards Section -->
-  <div class="relative -mt-16 px-4 pb-20">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
-        
-        <!-- BASIC PLAN -->
-        <div class="group relative bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-          <!-- Card Header -->
-          <div class="relative h-32 bg-gradient-to-br from-slate-50 to-slate-100 border-b border-gray-200">
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
-            <div class="relative p-8">
-              <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg mb-4">
-                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-              </div>
+<div class="relative px-4 pb-20 pt-32">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- BASIC PLAN -->
+      <div class="group relative bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+        <!-- Card Header -->
+        <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 px-8 py-10 border-b border-gray-200">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <div>
               <h3 class="text-2xl font-bold text-gray-900">Basic</h3>
+              <p class="text-sm text-gray-600 mt-1">Small optical shops</p>
             </div>
           </div>
-
-          <!-- Card Body -->
-          <div class="p-8">
-            <!-- Price -->
-            <div class="mb-8">
-              <div class="flex items-baseline gap-2 mb-2">
-                <span class="text-5xl font-extrabold text-gray-900">Rs25k</span>
-                <span class="text-gray-500 font-medium">/month</span>
-              </div>
-              <p class="text-gray-600 text-sm">Perfect for small optical shops</p>
-            </div>
-
-            <!-- CTA Button -->
-            <a href="{{ route('subscription.start', ['plan' => 'basic']) }}" class="block mb-8">
-              <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                Get Started
-              </button>
-            </a>
-
-            <!-- Features List -->
-            <div class="space-y-4">
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">1 month subscription</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Virtual try-on for unlimited customers</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Unique QR code</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Basic dashboard access</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Up to 50 lens SKUs</span>
-              </div>
-            </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-5xl font-extrabold text-gray-900">Rs25k</span>
+            <span class="text-gray-600 font-medium text-lg">/month</span>
           </div>
         </div>
 
-        <!-- PROFESSIONAL PLAN (FEATURED) -->
-        <div class="group relative bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-110 hover:shadow-blue-500/50 lg:-mt-4 lg:mb-4">
-          <!-- Popular Badge -->
-          <div class="absolute -top-1 left-1/2 transform -translate-x-1/2 z-20">
-            <div class="bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 text-xs font-bold uppercase tracking-wider px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
+        <!-- Card Body -->
+        <div class="p-8">
+          <!-- CTA Button -->
+          <a href="{{ route('subscription.start', ['plan' => 'basic']) }}" class="block mb-8">
+            <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+              Get Started
+            </button>
+          </a>
+
+          <!-- Features List -->
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">1 month subscription</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Virtual try-on for unlimited customers</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Unique QR code</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Basic dashboard access</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Up to 50 lens SKUs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFESSIONAL PLAN (FEATURED) -->
+      <div class="group relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:shadow-blue-500/30 hover:-translate-y-2 lg:scale-105">
+        <!-- Popular Badge -->
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+          <div class="bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full shadow-lg">
+            <div class="flex items-center gap-2">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
               </svg>
               Most Popular
             </div>
           </div>
+        </div>
 
-          <!-- Decorative Glow -->
-          <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-          
-          <!-- Card Header -->
-          <div class="relative h-32 border-b border-white/20 bg-white/5">
-            <div class="relative p-8 pt-12">
-              <div class="inline-flex items-center justify-center w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl shadow-lg mb-4">
-                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                </svg>
-              </div>
+        <!-- Card Header -->
+        <div class="relative bg-white/10 backdrop-blur-sm px-8 py-10 border-b border-white/20">
+          <div class="flex items-center gap-4 mb-6 pt-4">
+            <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+              </svg>
+            </div>
+            <div>
               <h3 class="text-2xl font-bold text-white">Professional</h3>
+              <p class="text-sm text-blue-100 mt-1">Growing businesses</p>
             </div>
           </div>
-
-          <!-- Card Body -->
-          <div class="relative p-8">
-            <!-- Price -->
-            <div class="mb-8">
-              <div class="flex items-baseline gap-2 mb-2">
-                <span class="text-5xl font-extrabold text-white">Rs50k</span>
-                <span class="text-blue-100 font-medium">/6 months</span>
-              </div>
-              <p class="text-blue-100 text-sm">For growing businesses</p>
-            </div>
-
-            <!-- CTA Button -->
-            <a href="{{ route('subscription.start', ['plan' => 'professional']) }}" class="block mb-8">
-              <button class="w-full bg-white text-blue-600 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                Get Started
-              </button>
-            </a>
-
-            <!-- Features List -->
-            <div class="space-y-4">
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-cyan-400/30 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-cyan-200" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-white text-sm font-medium">6 months subscription</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-cyan-400/30 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-cyan-200" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-white text-sm font-medium">Everything in Basic</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-cyan-400/30 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-cyan-200" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-white text-sm font-medium">Advanced analytics</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-cyan-400/30 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-cyan-200" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-white text-sm font-medium">Up to 200 lens SKUs</span>
-              </div>
-            </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-5xl font-extrabold text-white">Rs50k</span>
+            <span class="text-blue-100 font-medium text-lg">/6 months</span>
           </div>
         </div>
 
-        <!-- ENTERPRISE PLAN -->
-        <div class="group relative bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-          <!-- Card Header -->
-          <div class="relative h-32 bg-gradient-to-br from-slate-50 to-slate-100 border-b border-gray-200">
-            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent"></div>
-            <div class="relative p-8">
-              <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-lg mb-4">
-                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+        <!-- Card Body -->
+        <div class="relative p-8">
+          <!-- CTA Button -->
+          <a href="{{ route('subscription.start', ['plan' => 'professional']) }}" class="block mb-8">
+            <button class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+              Get Started
+            </button>
+          </a>
+
+          <!-- Features List -->
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-400/30 backdrop-blur-sm flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-cyan-100" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-gray-900">Enterprise</h3>
+              <span class="text-white font-medium">6 months subscription</span>
             </div>
-          </div>
-
-          <!-- Card Body -->
-          <div class="p-8">
-            <!-- Price -->
-            <div class="mb-8">
-              <div class="flex items-baseline gap-2 mb-2">
-                <span class="text-5xl font-extrabold text-gray-900">Rs100k</span>
-                <span class="text-gray-500 font-medium">/year</span>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-400/30 backdrop-blur-sm flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-cyan-100" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
               </div>
-              <p class="text-gray-600 text-sm">Unlimited access for large chains</p>
+              <span class="text-white font-medium">Everything in Basic</span>
             </div>
-
-            <!-- CTA Button -->
-            <a href="{{ route('subscription.start', ['plan' => 'enterprise']) }}" class="block mb-8">
-              <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                Get Started
-              </button>
-            </a>
-
-            <!-- Features List -->
-            <div class="space-y-4">
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">12 months subscription</span>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-400/30 backdrop-blur-sm flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-cyan-100" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
               </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Everything in Pro</span>
+              <span class="text-white font-medium">Advanced analytics</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-400/30 backdrop-blur-sm flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-cyan-100" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
               </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Dedicated account manager</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">24/7 priority support</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Unlimited lens SKUs</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
-                  <svg class="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <span class="text-gray-700 text-sm font-medium">Advanced customization</span>
-              </div>
+              <span class="text-white font-medium">Up to 200 lens SKUs</span>
             </div>
           </div>
         </div>
-
       </div>
+
+      <!-- ENTERPRISE PLAN -->
+      <div class="group relative bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+        <!-- Card Header -->
+        <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 px-8 py-10 border-b border-gray-200">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-gray-900">Enterprise</h3>
+              <p class="text-sm text-gray-600 mt-1">Large optical chains</p>
+            </div>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-5xl font-extrabold text-gray-900">Rs100k</span>
+            <span class="text-gray-600 font-medium text-lg">/year</span>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="p-8">
+          <!-- CTA Button -->
+          <a href="{{ route('subscription.start', ['plan' => 'enterprise']) }}" class="block mb-8">
+            <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+              Get Started
+            </button>
+          </a>
+
+          <!-- Features List -->
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">12 months subscription</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Everything in Pro</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Dedicated account manager</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">24/7 priority support</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Unlimited lens SKUs</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-gray-700 font-medium">Advanced customization</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
 <body class="bg-gradient-to-br from-slate-50 via-white to-slate-100 font-sans antialiased">
 
   <!-- All Plans Include Section -->
