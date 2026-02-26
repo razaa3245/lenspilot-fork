@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('brand');
-            $table->enum('type', ['contact', 'spectacle', 'colored'])->default('contact');
+            $table->enum('type', ['daily', 'monthly', 'yearly'])->default('contact');
             $table->string('color')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

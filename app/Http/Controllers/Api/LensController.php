@@ -63,7 +63,7 @@ class LensController extends Controller
             'name'        => 'required|string|max:255',
             'brand'       => 'nullable|string|max:255',
             'color'       => 'nullable|string|max:255',
-            'type'        => 'required|in:contact,spectacle,colored',
+            'type'        => 'required|in:daily,monthly,yearly',
             'description' => 'nullable|string',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -120,7 +120,7 @@ class LensController extends Controller
             'name'        => 'required|string|max:255',
             'brand'       => 'nullable|string|max:255',
             'color'       => 'nullable|string|max:255',
-            'type'        => 'required|in:contact,spectacle,colored',
+            'type'        => 'required|in:daily,monthly,yearly',
             'description' => 'nullable|string',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

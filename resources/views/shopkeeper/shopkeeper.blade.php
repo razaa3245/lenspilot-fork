@@ -476,7 +476,84 @@
           document.body.appendChild(modal);
         }
 
+        let currentLensId = null;
+let videoStream = null;
 
+async function openTryOnModal(lensId) {
+    currentLensId = lensId;
+    const modal = document.getElementById('tryOnModal');
+    const video = document.getElementById('webcam');
+    
+    modal.classList.remove('hidden');
+    document.getElementById('ar-result').classList.add('hidden');
+    video.classList.remove('hidden');
+
+    try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = videoStream;
+    } catch (err) {
+        alert("Camera access denied! Please enable camera to use Try-On.");
+        closeModal();
+    }
+}
+
+document.getElementById('capture-btn').onclick = async () => {
+    const video = document.getElementById('webcam');
+    const canvas = document.createElement('canvas');
+    const status = document.getElementById('status-msg');
+    const spinner = document.getElementById('loading-spinner');
+    
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    
+    spinner.classList.remove('hidden');
+    status.innerText = "Processing AI Magic...";
+
+    canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append("image", blob, "capture.jpg");
+        formData.append("lens_id", currentLensId);
+
+        try {
+            // FastAPI Endpoint (Running on Port 8000)
+            const response = await fetch("http://127.0.0.1:8000/apply-lens", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const resultBlob = await response.blob();
+                const url = URL.createObjectURL(resultBlob);
+                
+                const resultImg = document.getElementById('ar-result');
+                resultImg.src = url;
+                resultImg.classList.remove('hidden');
+                video.classList.add('hidden');
+                status.innerText = "Lens Applied Successfully!";
+            } else {
+                status.innerText = "Face not detected. Try again!";
+            }
+        } catch (err) {
+            status.innerText = "Error: AI Server not responding.";
+        } finally {
+            spinner.classList.add('hidden');
+        }
+    }, 'image/jpeg');
+};
+
+function resetCamera() {
+    document.getElementById('ar-result').classList.add('hidden');
+    document.getElementById('webcam').classList.remove('hidden');
+    document.getElementById('status-msg').innerText = "Position your face in the center";
+}
+
+function closeModal() {
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+    }
+    document.getElementById('tryOnModal').classList.add('hidden');
+}
         
         //  Logout Function
       
@@ -540,7 +617,39 @@
           window.location.href = '/signup';
         }
       </script>
+      <div id="tryOnModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden relative">
+        <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/20 hover:bg-red-500 text-white p-2 rounded-full transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
 
+        <div class="p-6 text-center">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Virtual Try-On Experience</h3>
+            
+            <div class="relative bg-slate-100 rounded-xl overflow-hidden aspect-video shadow-inner">
+                <video id="webcam" autoplay playsinline class="w-full h-full object-cover scale-x-[-1]"></video>
+                <img id="ar-result" class="hidden w-full h-full object-cover absolute top-0 left-0" alt="AR Result">
+                
+                <div id="loading-spinner" class="hidden absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div class="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-cyan-500"></div>
+                </div>
+            </div>
+
+            <p id="status-msg" class="text-sm text-gray-500 mt-4 font-medium italic">Position your face in the center</p>
+
+            <div class="flex gap-4 mt-6">
+                <button id="capture-btn" class="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg hover:shadow-cyan-500/30 transition-all">
+                    Apply Lens
+                </button>
+                <button onclick="resetCamera()" class="flex-1 border-2 border-gray-200 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-50">
+                    Retake
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
     </main>
     @include('web.layouts.footer')
   </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,19 +8,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
+
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 font-sans min-h-screen flex">
   <!-- SIDEBAR -->
-  <aside x-data="{ open: false }"
-         :class="open ? 'w-64' : 'w-20'"
-         class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0 z-50">
+  <aside x-data="{ open: false }" :class="open ? 'w-64' : 'w-20'"
+    class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0 z-50">
 
     <!-- Top Section -->
     <div>
       <!-- Logo -->
       <div class="flex items-center justify-between p-4">
         <div class="flex items-center space-x-3">
-          <div  class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-            <span id="sidebar-email-first"class="text-cyan-600 font-bold text-lg"></span>
+          <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+            <span id="sidebar-email-first" class="text-cyan-600 font-bold text-lg"></span>
           </div>
           <div x-show="open" class="text-gray-700">
             <span id="admin-email-sidebar" class="text-sm text-gray-600"></span>
@@ -39,17 +40,23 @@
         <ul>
           <li>
             <a href="/shopkeeper/dashboard" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               <span x-show="open" x-transition class="ml-3 text-sm">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="/shopkeeper/catalog1" class="flex items-center px-6 py-2 bg-cyan-50 text-cyan-700 border-r-4 border-cyan-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            <a href="/shopkeeper/catalog1"
+              class="flex items-center px-6 py-2 bg-cyan-50 text-cyan-700 border-r-4 border-cyan-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
               <span x-show="open" x-transition class="ml-3 text-sm font-semibold">Lens Catalog</span>
             </a>
@@ -58,11 +65,14 @@
       </nav>
 
       <!-- Premium Plan Section -->
-      <div x-show="open" class="mx-4 mt-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl p-4 shadow-sm">
+      <div x-show="open"
+        class="mx-4 mt-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl p-4 shadow-sm">
         <div class="flex items-center gap-2 mb-2">
           <div class="w-8 h-8 bg-cyan-600 rounded-lg flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
             </svg>
           </div>
           <h3 class="text-sm font-semibold text-cyan-700">Current Plan</h3>
@@ -70,7 +80,8 @@
         <p class="text-lg font-bold text-gray-900">Basic</p>
         <p class="text-xs text-gray-600 mt-1">Rs 25,000 /month</p>
         <p class="text-xs text-gray-500 mt-1">Expires: Nov 12, 2025</p>
-        <button class="mt-3 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm px-3 py-2 rounded-lg font-semibold transition-all hover:shadow-md">
+        <button
+          class="mt-3 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm px-3 py-2 rounded-lg font-semibold transition-all hover:shadow-md">
           Update Plan
         </button>
       </div>
@@ -81,17 +92,23 @@
       <ul>
         <li>
           <a href="#" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             <span x-show="open" class="ml-3 text-sm">Settings</span>
           </a>
         </li>
         <li>
-          <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full text-left">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          <button onclick="logout()"
+            class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full text-left">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
             <span x-show="open" class="ml-3 text-sm text-red-500">Logout</span>
           </button>
@@ -103,13 +120,16 @@
   <!-- MAIN CONTENT -->
   <div class="flex-1 flex flex-col overflow-x-hidden">
     <!-- HEADER -->
-    <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-40 transition-all duration-300 hover:shadow-md">
+    <header
+      class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-40 transition-all duration-300 hover:shadow-md">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
-          <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+          <h1
+            class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+            VisionTech</h1>
         </div>
-        
+
         <div class="flex items-center gap-4">
           <span id="admin-email" class="text-sm text-gray-600"></span>
         </div>
@@ -121,14 +141,18 @@
       <div class="max-w-7xl mx-auto px-8 py-12">
         <div class="text-center">
           <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
             <span class="text-sm font-semibold text-gray-700">Premium Lens Collection</span>
           </div>
           <h1 class="text-4xl font-extrabold text-gray-900 mb-3">Lens Catalogue</h1>
-          <p class="text-gray-600 text-lg max-w-2xl mx-auto">Browse our collection of premium colored contact lenses and try them virtually</p>
+          <p class="text-gray-600 text-lg max-w-2xl mx-auto">Browse our collection of premium colored contact lenses and
+            try them virtually</p>
         </div>
       </div>
     </div>
@@ -138,20 +162,25 @@
       <div class="max-w-7xl mx-auto px-8 py-6">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
             </svg>
             <span class="text-sm font-semibold text-gray-700">Filter by Category:</span>
           </div>
-          
+
           <div class="flex flex-wrap gap-3">
-            <button onclick="filterLenses('all')" id="filter-all" class="px-6 py-2.5 bg-gradient-to-r from-cyan-600 to-cyan-700 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
+            <button onclick="filterLenses('all')" id="filter-all"
+              class="px-6 py-2.5 bg-gradient-to-r from-cyan-600 to-cyan-700 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
               All Lenses
             </button>
-            <button onclick="filterLenses('natural')" id="filter-natural" class="px-6 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-cyan-300 hover:bg-cyan-50 transition-all">
+            <button onclick="filterLenses('natural')" id="filter-natural"
+              class="px-6 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-cyan-300 hover:bg-cyan-50 transition-all">
               Natural
             </button>
-            <button onclick="filterLenses('vibrant')" id="filter-vibrant" class="px-6 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-cyan-300 hover:bg-cyan-50 transition-all">
+            <button onclick="filterLenses('vibrant')" id="filter-vibrant"
+              class="px-6 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-cyan-300 hover:bg-cyan-50 transition-all">
               Vibrant
             </button>
           </div>
@@ -164,8 +193,10 @@
       <div class="relative">
         <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-cyan-600"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-cyan-600" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
         </div>
       </div>
@@ -173,7 +204,9 @@
       <p class="mt-2 text-sm text-gray-500">Please wait while we fetch the catalogue</p>
     </div>
     <!-- Lens Cards Container -->
-    <div id="lens-container" class="max-w-7xl mx-auto px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" style="display: none;">
+    <div id="lens-container"
+      class="max-w-7xl mx-auto px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      style="display: none;">
       <!-- Lens cards will be dynamically inserted here -->
     </div>
 
@@ -182,12 +215,14 @@
       <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-12 max-w-md text-center">
         <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg class="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
           </svg>
         </div>
         <h3 class="text-2xl font-bold text-gray-900 mb-2">No lenses found</h3>
         <p class="text-gray-600 mb-6">There are no lenses in the catalogue yet.</p>
-        <button onclick="window.location.href='/shopkeeper/dashboard'" class="bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all hover:shadow-lg">
+        <button onclick="window.location.href='/shopkeeper/dashboard'"
+          class="bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all hover:shadow-lg">
           Go to Dashboard
         </button>
       </div>
@@ -200,14 +235,19 @@
           <h2 class="text-3xl font-bold text-gray-900 mb-3">Why Choose Our Lenses?</h2>
           <p class="text-gray-600">Experience premium quality with every pair</p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Feature 1 -->
-          <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="w-14 h-14 bg-gradient-to-br from-cyan-100 to-cyan-200 rounded-xl flex items-center justify-center mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          <div
+            class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all hover:-translate-y-1">
+            <div
+              class="w-14 h-14 bg-gradient-to-br from-cyan-100 to-cyan-200 rounded-xl flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-cyan-600" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
             </div>
             <h4 class="text-xl font-bold text-gray-900 mb-3">Virtual Try-On</h4>
@@ -215,10 +255,14 @@
           </div>
 
           <!-- Feature 2 -->
-          <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div
+            class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all hover:-translate-y-1">
+            <div
+              class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-purple-600" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <h4 class="text-xl font-bold text-gray-900 mb-3">Premium Quality</h4>
@@ -226,10 +270,14 @@
           </div>
 
           <!-- Feature 3 -->
-          <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          <div
+            class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all hover:-translate-y-1">
+            <div
+              class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
             </div>
             <h4 class="text-xl font-bold text-gray-900 mb-3">Easy Returns</h4>
@@ -244,19 +292,23 @@
       <div class="max-w-4xl mx-auto px-8 text-center">
         <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-10 border border-white/20">
           <h2 class="text-3xl font-bold text-white mb-4">Ready to Manage Your Lenses?</h2>
-          <p class="text-white/90 text-lg mb-8">Access your dashboard to add, edit, or remove lenses from your catalogue</p>
-          <button onclick="window.location.href='/shopkeeper/dashboard'" class="bg-white hover:bg-gray-100 text-cyan-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 inline-flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          <p class="text-white/90 text-lg mb-8">Access your dashboard to add, edit, or remove lenses from your catalogue
+          </p>
+          <button onclick="window.location.href='/shopkeeper/dashboard'"
+            class="bg-white hover:bg-gray-100 text-cyan-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
             Go To Dashboard
           </button>
         </div>
       </div>
     </div>
-    <div >
-    @include('web.layouts.footer')
-</div>
+    <div>
+      @include('web.layouts.footer')
+    </div>
   </div>
 
   <script>
@@ -276,9 +328,9 @@
     function checkAuth() {
       const token = localStorage.getItem('token');
       const adminEmail = localStorage.getItem('adminEmail');
-      const userEmail = user  ;
+      const userEmail = user;
       if (adminEmail) {
-const email = userInfo.email;
+        const email = userInfo.email;
         const firstLetter = email.charAt(0).toUpperCase();   // first letter only
         document.getElementById('admin-email').textContent = adminEmail;
         document.getElementById('admin-email-sidebar').textContent = adminEmail;
@@ -287,12 +339,88 @@ const email = userInfo.email;
       } else {
         document.getElementById('admin-email').textContent = userEmail ? user.email : 'Guest';
         document.getElementById('admin-email-sidebar').textContent = user ? user.email : 'Guest';
-        
-         document.getElementById('sidebar-email-first').textContent = user? user.email.charAt(0).toUpperCase() : 'G';
+
+        document.getElementById('sidebar-email-first').textContent = user ? user.email.charAt(0).toUpperCase() : 'G';
       }
       return true;
     }
+    let currentLensId = null;
+let videoStream = null;
 
+async function openTryOnModal(lensId) {
+    currentLensId = lensId;
+    const modal = document.getElementById('tryOnModal');
+    const video = document.getElementById('webcam');
+    
+    modal.classList.remove('hidden');
+    resetCamera();
+
+    try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = videoStream;
+    } catch (err) {
+        alert("Camera permission denied!");
+        closeModal();
+    }
+}
+
+document.getElementById('capture-btn').onclick = async () => {
+    const video = document.getElementById('webcam');
+    const canvas = document.createElement('canvas');
+    const status = document.getElementById('status-msg');
+    const spinner = document.getElementById('loading-spinner');
+    
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    
+    spinner.classList.remove('hidden');
+    status.innerText = "AI is applying the lens...";
+
+    canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append("image", blob, "capture.jpg");
+        formData.append("lens_id", currentLensId);
+
+        try {
+            // Python FastAPI local server
+            const response = await fetch("http://127.0.0.1:8000/apply-lens", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const resultBlob = await response.blob();
+                const url = URL.createObjectURL(resultBlob);
+                const resultImg = document.getElementById('ar-result');
+                resultImg.src = url;
+                resultImg.classList.remove('hidden');
+                video.classList.add('hidden');
+                status.innerText = "Look at those eyes! ✨";
+            } else {
+                status.innerText = "Error: Face not detected clearly.";
+            }
+        } catch (err) {
+            status.innerText = "Error: Python AI server is not running.";
+            console.error(err);
+        } finally {
+            spinner.classList.add('hidden');
+        }
+    }, 'image/jpeg');
+};
+
+function resetCamera() {
+    document.getElementById('ar-result').classList.add('hidden');
+    document.getElementById('webcam').classList.remove('hidden');
+    document.getElementById('status-msg').innerText = "Align your face and click apply";
+}
+
+function closeModal() {
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+    }
+    document.getElementById('tryOnModal').classList.add('hidden');
+}
     // Logout function
     async function logout() {
       console.log(' Logging out...');
@@ -476,13 +604,21 @@ const email = userInfo.email;
             
 
             <!-- CTA Button -->
-            <button class="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white py-3 rounded-xl font-semibold shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-              Try This Lens
-            </button>
+            // <button class="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white py-3 rounded-xl font-semibold shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            //   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            //     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            //     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            //   </svg>
+            //   Try This Lens
+            // </button>
+            // createLensCard function ke andar niche wala button update karein
+<button onclick="openTryOnModal('${id}')" class="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white py-3 rounded-xl font-semibold shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  </svg>
+  Try This Lens
+</button>
           </div>
         </div>
       `;
@@ -519,13 +655,45 @@ const email = userInfo.email;
     }
 
     // Initialize on page load
-    window.onload = function() {
+    window.onload = function () {
       if (checkAuth()) {
         fetchLenses();
       }
     };
   </script>
-  
+
+  <div id="tryOnModal"
+    class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden relative">
+      <button onclick="closeModal()"
+        class="absolute top-4 right-4 z-10 bg-gray-200 hover:bg-red-500 hover:text-white p-2 rounded-full transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Virtual Try-On</h3>
+        <div
+          class="relative bg-slate-100 rounded-xl overflow-hidden aspect-square shadow-inner border-4 border-cyan-100">
+          <video id="webcam" autoplay playsinline class="w-full h-full object-cover scale-x-[-1]"></video>
+          <canvas id="captured-canvas" class="hidden w-full h-full object-cover absolute top-0 left-0"></canvas>
+          <img id="ar-result" class="hidden w-full h-full object-cover absolute top-0 left-0 z-10" alt="AR Result">
+          <div id="loading-spinner" class="hidden absolute inset-0 bg-black/40 z-20 flex items-center justify-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-cyan-500"></div>
+          </div>
+        </div>
+        <p id="status-msg" class="text-sm text-gray-500 mt-4 font-medium italic">Align your face and click apply</p>
+        <div class="flex gap-4 mt-6">
+          <button id="capture-btn"
+            class="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-all">Apply
+            Lens</button>
+          <button onclick="resetCamera()"
+            class="flex-1 border-2 border-gray-200 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-50">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
