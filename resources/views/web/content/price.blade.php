@@ -98,7 +98,7 @@
             </div>
           </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-5xl font-extrabold text-gray-900">Rs25k</span>
+            <span class="text-5xl font-extrabold text-gray-900">Rs 1000</span>
             <span class="text-gray-600 font-medium text-lg">/month</span>
           </div>
         </div>
@@ -107,9 +107,10 @@
         <div class="p-8">
           <!-- CTA Button -->
           <a href="{{ route('subscription.start', ['plan' => 'basic']) }}" class="block mb-8">
-            <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+          <a href="/stripe">  
+          <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
               Get Started
-            </button>
+            </button></a>
           </a>
 
           <!-- Features List -->
@@ -186,7 +187,7 @@
             </div>
           </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-5xl font-extrabold text-white">Rs50k</span>
+            <span class="text-5xl font-extrabold text-white">Rs 4000</span>
             <span class="text-blue-100 font-medium text-lg">/6 months</span>
           </div>
         </div>
@@ -195,9 +196,12 @@
         <div class="relative p-8">
           <!-- CTA Button -->
           <a href="{{ route('subscription.start', ['plan' => 'professional']) }}" class="block mb-8">
-            <button class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <a href="/membership">   
+          <button class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
               Get Started
+</a>
             </button>
+            
           </a>
 
           <!-- Features List -->
@@ -254,7 +258,7 @@
             </div>
           </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-5xl font-extrabold text-gray-900">Rs100k</span>
+            <span class="text-5xl font-extrabold text-gray-900">Rs 7000</span>
             <span class="text-gray-600 font-medium text-lg">/year</span>
           </div>
         </div>
@@ -263,9 +267,13 @@
         <div class="p-8">
           <!-- CTA Button -->
           <a href="{{ route('subscription.start', ['plan' => 'enterprise']) }}" class="block mb-8">
-            <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+          <a href="/stripe2">  
+          <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
               Get Started
+
+
             </button>
+</a>
           </a>
 
           <!-- Features List -->

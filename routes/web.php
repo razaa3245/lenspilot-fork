@@ -1,4 +1,7 @@
 <?php
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\StripeController2;
+use App\Http\Controllers\Stripe2Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionController;
@@ -6,6 +9,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ShopkeeperController;
 use App\Http\Controllers\LensController;
 use App\Http\Controllers\MController;
+use App\Http\Controllers\MembershipPaymentController;
+
 // Static pages only
 Route::get('/', fn() => view('web.index'))->name('home');
 Route::get('/aboutus', fn() => view('web.content.aboutus'))->name('aboutus');
@@ -129,3 +134,17 @@ Route::get('/lens/prev', [MController::class, 'prevLens']);
 Route::get('shopkeeper/dashboard', function () {
     return view('shopkeeper.shopkeeper');   // ← yahi sahi hai
 })->name('shopkeeper.dashboard');
+
+//stripe ke routes
+Route::get('/stripe', [StripeController::class, 'stripe']);
+Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+
+
+
+Route::get('/membership', [MembershipPaymentController::class, 'membership']);
+Route::post('/membership-payment', [MembershipPaymentController::class, 'paymentPost'])
+        ->name('membership.payment');
+
+Route::get('/stripe2', [Stripe2Controller::class, 'stripe2']);
+Route::post('/stripe2-payment', [Stripe2Controller::class, 'stripe2Post'])
+        ->name('stripe2.post');

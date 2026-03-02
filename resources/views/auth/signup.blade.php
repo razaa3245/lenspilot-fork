@@ -453,6 +453,7 @@
       
       <button type="submit" id="signupSubmitBtn"
         class="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-md shadow-md transition-all duration-300 hover:scale-105">
+        
         Sign Up
       </button>
       
@@ -631,7 +632,8 @@
           document.getElementById('message').innerHTML = '<p class="text-green-600 font-medium">' + result.message + '</p>';
           showLoader(false);
           setTimeout(() => {
-            showForm('login');
+            
+            window.location.href = '/price';
           }, 2000);
         } else {
           let errorMsg = result.message || 'Registration failed';
