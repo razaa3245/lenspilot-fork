@@ -18,8 +18,8 @@ class UserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'shop_name' => 'nullable|string|max:255',
-            'address'=> 'required|string|max:255',
-            'retailer_name'=> 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'retailer_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
         ];
     }

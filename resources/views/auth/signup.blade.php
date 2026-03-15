@@ -435,12 +435,13 @@
     </form>
 
     <!-- SIGNUP FORM -->
-    <form id="signupForm" class="hidden">
+    <form id="signupForm" method="POST" action="{{ route('signup.prepare') }}" class="hidden">
+      @csrf
       <input type="text" name="name" placeholder="Full Name" required
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
       <input type="text" name="shop_name" placeholder="Shop Name" required
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="text" name="retailer_name" placeholder="Retailer Name"
+      <input type="text" name="retailer_name" placeholder="Retailer Name" required
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
       <textarea name="address" placeholder="Address" rows="2"
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 resize-none focus:border-cyan-400 outline-none shadow-sm"></textarea>
@@ -453,7 +454,6 @@
       
       <button type="submit" id="signupSubmitBtn"
         class="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-md shadow-md transition-all duration-300 hover:scale-105">
-        
         Sign Up
       </button>
       
@@ -464,6 +464,18 @@
     </form>
 
     <div id="message" class="mt-4 text-sm"></div>
+
+    @if (session('success'))
+        <div class="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
 
   </div>
 
@@ -588,7 +600,19 @@
           }
         } else {
           console.error('Login failed:', result.message);
+
+          // If backend indicates the subscription has expired, redirect to renewal
           document.getElementById('message').innerHTML = '<p class="text-red-600 font-medium">' + result.message + '</p>';
+
+          const redirectUrl = result.redirect_to || '/subscription/select';
+          const isExpiredMessage = response.status === 403 && result.message && result.message.toLowerCase().includes('expired');
+
+          if (redirectUrl && isExpiredMessage) {
+            setTimeout(() => {
+              window.location.href = redirectUrl;
+            }, 1200);
+          }
+
           showLoader(false);
         }
       } catch (error) {
@@ -598,56 +622,9 @@
       }
     });
 
-    // SIGNUP FORM SUBMIT (AJAX to /api/register)
-    document.getElementById('signupForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Show  loader
+    // SIGNUP FORM SUBMIT (redirect to plan selection)
+    document.getElementById('signupForm').addEventListener('submit', function () {
       showLoader(true);
-
-      const formData = new FormData(this);
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        password: formData.get('password'),
-        shop_name: formData.get('shop_name'),
-        retailer_name: formData.get('retailer_name'),
-        address: formData.get('address'),
-        phone: formData.get('phone')
-      };
-
-      try {
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          document.getElementById('message').innerHTML = '<p class="text-green-600 font-medium">' + result.message + '</p>';
-          showLoader(false);
-          setTimeout(() => {
-            
-            window.location.href = '/price';
-          }, 2000);
-        } else {
-          let errorMsg = result.message || 'Registration failed';
-          if (result.errors) {
-            errorMsg = Object.values(result.errors).flat().join(', ');
-          }
-          document.getElementById('message').innerHTML = '<p class="text-red-600 font-medium">' + errorMsg + '</p>';
-          showLoader(false);
-        }
-      } catch (error) {
-        console.error('Signup error:', error);
-        document.getElementById('message').innerHTML = '<p class="text-red-600 font-medium">An error occurred. Please try again.</p>';
-        showLoader(false);
-      }
     });
 
     // Show the dashboard modal

@@ -33,19 +33,24 @@ class ShopkeeperController extends Controller
         ]);
 
         // Dashboard data
+        $subscriptionPlan = $shopkeeper ? ucfirst($shopkeeper->plan_name ?? 'No Plan') : 'No Plan';
+        $daysRemaining = $shopkeeper && $shopkeeper->plan_expiry
+            ? now()->diffInDays($shopkeeper->plan_expiry, false)
+            : 0;
+
         $data = [
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'type' => $user->type,
-                'shop_name' => $user->name ?? 'danish optics'
+                'shop_name' => $shopkeeper->shop_name ?? $user->name ?? 'Shop'
             ],
             'stats' => [
-                'total_tryons' => 1247,
-                'growth_percentage' => '+12% from last month',
-                'subscription_plan' => 'Pro Plan',
-                'days_remaining' => 124
+                'total_tryons' => 1247, // This should be calculated from actual data
+                'growth_percentage' => '+12% from last month', // This should be calculated
+                'subscription_plan' => $subscriptionPlan,
+                'days_remaining' => max(0, $daysRemaining)
             ],
             'qr_code' => $qr_code,
 

@@ -33,41 +33,59 @@ public function __construct(UserService $userService)
     /**
      * Login existing user
      */
-    public function login(Request $request)
-    {
-        $validated = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required|string',
-        ]);
+   public function login(Request $request)
+{
+    $validated = $request->validate([
+        'email'    => 'required|email',
+        'password' => 'required|string',
+    ]);
 
-        // Find user by email
-        $user = User::where('email', $validated['email'])->first();
+    // Find user
+    $user = User::where('email', $validated['email'])->first();
 
-        // Check if user exists and password matches
-        if (!$user || !Hash::check($validated['password'], $user->password)) {
-            return response()->json([
-                'message' => 'Invalid credentials.'
-            ], 401);
-        }
-
-        // Check approval status for shopkeepers
-        if ($user->type === 'shopkeeper' && !$user->is_approved) {
-            return response()->json([
-                'message' => 'Your account is pending admin approval.'
-            ], 403);
-        }
-
-        // Generate Sanctum token
-        $token = $user->createToken('auth_token')->plainTextToken;
-
+    // Check credentials
+    if (!$user || !Hash::check($validated['password'], $user->password)) {
         return response()->json([
-            'message' => 'Login successful.',
-            'user'    => $user,
-            'role'    => $user->type,  // Return role (type)
-            'token'   => $token,
-        ], 200);
+            'message' => 'Invalid credentials.'
+        ], 401);
     }
 
+    // Check approval for shopkeepers
+    if ($user->type === 'shopkeeper' && !$user->is_approved) {
+        return response()->json([
+            'message' => 'Your account is pending admin approval.'
+        ], 403);
+    }
+
+    // Check subscription BEFORE login
+    if ($user->type === 'shopkeeper') {
+
+        $shopkeeper = \App\Models\Shopkeeper::where('user_id', $user->id)->first();
+
+        if ($shopkeeper) {
+
+            if ($shopkeeper->plan_status === 'expired' || $shopkeeper->plan_status === 'none') {
+
+                return response()->json([
+                    'message' => $shopkeeper->plan_status === 'expired'
+                        ? 'Your subscription has expired.'
+                        : 'Please select a subscription plan.',
+                    'redirect_to' => url('/price')
+                ], 403);
+            }
+        }
+    }
+
+    // If subscription is valid → allow login
+    $token = $user->createToken('auth_token')->plainTextToken;
+
+    return response()->json([
+        'message' => 'Login successful.',
+        'user'    => $user,
+        'role'    => $user->type,
+        'token'   => $token,
+    ], 200);
+}
     /**
      * Logout current user
      */

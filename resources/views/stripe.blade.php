@@ -143,60 +143,71 @@
 <body>
     <div class="checkout-wrapper">
 
+        @php
+            $signup = $signupData ?? session('signup_data', []);
+            $plan = $plan ?? session('selected_plan', 'basic');
+            $planDetails = $planDetails ?? [
+                'name' => 'Basic Plan',
+                'price' => 1000,
+                'duration' => '1 Month',
+            ];
+        @endphp
+
         @if (session('success'))
             <div class="alert alert-success mb-4">
                 {{ session('success') }}
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <form id="payment-form" action="{{ route('stripe.post') }}" method="POST">
             @csrf
             <input type="hidden" name="stripeToken" id="stripeToken">
-              <input type="hidden" name="amount" value="1000">
+            <input type="hidden" name="plan" value="{{ $plan }}">
+            <input type="hidden" name="amount" value="{{ $planDetails['price'] }}">
             <div class="d-flex flex-column flex-md-row">
 
                 <!-- ===== BILLING ADDRESS ===== -->
+                @if(!isset($isRenewal) || !$isRenewal)
                 <div class="flex-grow-1">
                     <div class="section-title">Billing Address</div>
 
                     <div class="mb-3">
                         <label class="form-label">Full Name :</label>
-                        <input type="text" name="full_name" class="form-control" placeholder="Jacob Aiden">
+                        <input type="text" name="full_name" class="form-control" placeholder="Jacob Aiden" value="{{ old('full_name', $signupData['name'] ?? '') }}">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Email :</label>
-                        <input type="email" name="email" class="form-control" placeholder="example@example.com">
+                        <input type="email" name="email" class="form-control" placeholder="example@example.com" value="{{ old('email', $signupData['email'] ?? '') }}">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Address :</label>
-                        <input type="text" name="address" class="form-control" placeholder="Room - Street - Locality">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">City :</label>
-                        <input type="text" name="city" class="form-control" placeholder="Berlin">
-                    </div>
-
-                    <div class="d-flex gap-3">
-                        <div class="flex-grow-1">
-                            <label class="form-label">State :</label>
-                            <input type="text" name="state" class="form-control" placeholder="Germany">
-                        </div>
-                        <div class="flex-grow-1">
-                            <label class="form-label">Zip Code :</label>
-                            <input type="text" name="zip" class="form-control" placeholder="123 456">
-                        </div>
+                        <input type="text" name="address" class="form-control" placeholder="Room - Street - Locality" value="{{ old('address', $signupData['address'] ?? '') }}">
                     </div>
                 </div>
 
                 <!-- Vertical Divider -->
                 <div class="divider d-none d-md-block"></div>
+                @endif
 
                 <!-- ===== PAYMENT ===== -->
                 <div class="flex-grow-1">
+                    @if(isset($isRenewal) && $isRenewal)
+                    <div class="section-title">Renew Your Subscription</div>
+                    <div class="mb-4 p-3 rounded" style="background:#e8f4fd; border:1px solid #bee3f8;">
+                        <p class="mb-1"><strong>Welcome back!</strong></p>
+                        <p class="mb-0">You're renewing your {{ ucfirst($plan) }} plan subscription.</p>
+                    </div>
+                    @else
                     <div class="section-title">Payment</div>
+                    @endif
 
                     <!-- Cards Accepted -->
                     <div class="cards-label">Cards Accepted :</div>
@@ -232,10 +243,10 @@
 
                     <!-- Order Summary (from image 2 - preserved) -->
                     <div class="mb-3 p-3 rounded" style="background:#f8f9fb; border:1px solid #eee;">
-                        <p class="mb-1" style="font-size:0.88rem;"><strong>BASIC PLAN</strong></p>
-                        <p class="mb-1" style="font-size:0.88rem;"><strong>PRICE:</strong> Rs1000</p>
-                        <p class="mb-1" style="font-size:0.88rem;"><strong>DURATION:</strong>1 Month</p>
-                        <p class="mb-0" style="font-size:0.88rem;"><strong>Small Optic Shops</strong></p>
+                        <p class="mb-1" style="font-size:0.88rem;"><strong>{{ strtoupper($planDetails['name']) }}</strong></p>
+                        <p class="mb-1" style="font-size:0.88rem;"><strong>PRICE:</strong> Rs{{ $planDetails['price'] }}</p>
+                        <strong>DURATION:</strong> {{ $planDetails['days'] }} days
+                        <p class="mb-0" style="font-size:0.88rem;"><strong>{{ ucfirst($plan) }} plan</strong></p>
                     </div>
 
                     <!-- Stripe Card Element (from image 2 - logic preserved) -->
@@ -288,11 +299,6 @@
                 } else {
                     document.getElementById('stripeToken').value = result.token.id;
                     form.submit();
-                    
-                     setTimeout(() => {
-            
-            window.location.href = '/signup';
-          }, 2000);
                 }
             });
         });

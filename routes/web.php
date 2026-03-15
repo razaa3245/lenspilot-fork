@@ -49,6 +49,7 @@ Route::get('/admin/messages',  fn() => view('web.content.messages'))->name('mess
 // SUBSCRIPTION PAGES
 // ═══════════════════════════════════════════════
 Route::prefix('subscription')->name('subscription.')->group(function () {
+    Route::get('/select',  [SubscriptionController::class, 'select'])->name('select');
     Route::get('/start',   [SubscriptionController::class, 'start'])->name('start');
     Route::post('/checkout',[SubscriptionController::class, 'checkout'])->name('checkout');
     Route::get('/success', [SubscriptionController::class, 'success'])->name('success');
@@ -84,8 +85,14 @@ Route::get('/lens/prev',  [MController::class, 'prevLens']);
 // ═══════════════════════════════════════════════
 // PAYMENT ROUTES
 // ═══════════════════════════════════════════════
-Route::get('/stripe',              [StripeController::class,  'stripe']);
-Route::post('/stripe',             [StripeController::class,  'stripePost'])->name('stripe.post');
+Route::get('/stripe', [StripeController::class, 'stripe'])->name('stripe');
+Route::post('/stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+
+// Signup flow
+Route::post('/signup/prepare', [RegisterController::class, 'prepare'])->name('signup.prepare');
+
+// Plan selection -> Stripe checkout
+Route::get('/subscription/start/{plan}', [SubscriptionController::class, 'start'])->name('subscription.start');
 
 Route::get('/membership',          [MembershipPaymentController::class, 'membership']);
 Route::post('/membership-payment', [MembershipPaymentController::class, 'paymentPost'])->name('membership.payment');

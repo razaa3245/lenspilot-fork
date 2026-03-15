@@ -60,6 +60,8 @@ class UserService
                 'phone' => $data['phone'] ?? null,
                 'shop_name' => $data['shop_name'] ?? null,
                 'address' => $data['address'] ?? null,
+                'city' => $data['city'] ?? null,
+                'status' => 'active',
                 'retailer_name' => $data['retailer_name'] ?? null,
             ]);
 

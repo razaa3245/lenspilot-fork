@@ -19,21 +19,11 @@ class SubscriptionController extends Controller
         // Get plan details
         $planDetails = $this->getPlanDetails($plan);
         
-        // Check if user is logged in
-        if (!Auth::check()) {
-            // Redirect to signup with plan info
-            return redirect()->route('signup')->with([
-                'selected_plan' => $plan,
-                'message' => 'Please sign up to continue with ' . ucfirst($plan) . ' plan'
-            ]);
-        }
-        
-        // If logged in, show checkout
-        return view('subscription.checkout', [
-            'plan' => $plan,
-            'details' => $planDetails,
-            'user' => Auth::user()
-        ]);
+        // Store selected plan in session so Stripe page can use it
+        session(['selected_plan' => $plan]);
+
+        // Redirect to Stripe checkout page
+        return redirect()->route('stripe', ['plan' => $plan]);
     }
     
     /**
@@ -45,17 +35,25 @@ class SubscriptionController extends Controller
             'plan' => 'required|in:basic,professional,enterprise',
             'payment_method' => 'required|string',
         ]);
-        
+
         $user = Auth::user();
-        
-        // Create subscription record
-        \App\Models\Subscription::create([
-            'user_id' => $user->id,
-            'plan' => $validated['plan'],
-            'status' => 'active',
-            'expires_at' => $this->getExpiryDate($validated['plan']),
+
+        // Find or create shopkeeper record
+        $shopkeeper = \App\Models\Shopkeeper::where('user_id', $user->id)->first();
+        if (!$shopkeeper) {
+            // This shouldn't happen, but just in case
+            return redirect()->route('subscription.select')->with('error', 'Shopkeeper profile not found.');
+        }
+
+        // Update shopkeeper's subscription
+        $planDetails = $this->getPlanDetails($validated['plan']);
+        $shopkeeper->update([
+            'plan_name' => $validated['plan'],
+            'plan_price' => $planDetails['price'],
+            'plan_expiry' => $this->getExpiryDate($validated['plan']),
+            'plan_status' => 'active',
         ]);
-        
+
         return redirect()->route('subscription.success')->with('plan', $validated['plan']);
     }
     
@@ -66,6 +64,14 @@ class SubscriptionController extends Controller
     {
         $plan = session('plan', 'basic');
         return view('subscription.success', compact('plan'));
+    }
+
+    /**
+     * Subscription selection page for renewal
+     */
+    public function select()
+    {
+        return view('subscription.select');
     }
     
     /**

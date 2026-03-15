@@ -107,10 +107,9 @@
         <div class="p-8">
           <!-- CTA Button -->
           <a href="{{ route('subscription.start', ['plan' => 'basic']) }}" class="block mb-8">
-          <a href="/stripe">  
-          <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+            <div class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-center">
               Get Started
-            </button></a>
+            </div>
           </a>
 
           <!-- Features List -->
@@ -196,12 +195,9 @@
         <div class="relative p-8">
           <!-- CTA Button -->
           <a href="{{ route('subscription.start', ['plan' => 'professional']) }}" class="block mb-8">
-          <a href="/membership">   
-          <button class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
               Get Started
-</a>
-            </button>
-            
+            </div>
           </a>
 
           <!-- Features List -->
@@ -267,13 +263,9 @@
         <div class="p-8">
           <!-- CTA Button -->
           <a href="{{ route('subscription.start', ['plan' => 'enterprise']) }}" class="block mb-8">
-          <a href="/stripe2">  
-          <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+            <div class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-center">
               Get Started
-
-
-            </button>
-</a>
+            </div>
           </a>
 
           <!-- Features List -->

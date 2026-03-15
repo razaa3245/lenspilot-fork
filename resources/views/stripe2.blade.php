@@ -174,6 +174,21 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">Phone :</label>
+                        <input type="text" name="phone" class="form-control" placeholder="03XX-XXXXXXX">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Shop Name :</label>
+                        <input type="text" name="shop_name" class="form-control" placeholder="My Shop">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Retailer Name :</label>
+                        <input type="text" name="retailer_name" class="form-control" placeholder="Retailer Name">
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Address :</label>
                         <input type="text" name="address" class="form-control" placeholder="Room - Street - Locality">
                     </div>
