@@ -45,7 +45,7 @@
     <nav class="hidden md:flex flex-1 justify-center items-center gap-10 text-sm relative z-10">
 
       <a href="{{ route('home') }}" class="nav-link">Home</a>
-      <a href="{{ url('price') }}" class="nav-link">Pricing</a>
+      <a href="{{ url('price2') }}" class="nav-link">Pricing</a>
       <a href="{{ url('contact') }}" class="nav-link">Contact</a>
       <a href="{{ url('aboutus') }}" class="nav-link">About</a>
       <a href="{{ url('signup') }}" class="nav-link">Login</a>

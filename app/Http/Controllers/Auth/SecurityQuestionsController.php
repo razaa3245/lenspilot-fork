@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class SecurityQuestionsController extends Controller
 {
@@ -51,13 +52,13 @@ class SecurityQuestionsController extends Controller
         ]);
 
         $correct = true;
-        if (!Hash::check($request->answer1, $user->security_answer1)) {
+        if (!Hash::check(Str::lower(trim($request->answer1)), $user->security_answer1)) {
             $correct = false;
         }
-        if (!Hash::check($request->answer2, $user->security_answer2)) {
+        if (!Hash::check(Str::lower(trim($request->answer2)), $user->security_answer2)) {
             $correct = false;
         }
-        if (!Hash::check($request->answer3, $user->security_answer3)) {
+        if (!Hash::check(Str::lower(trim($request->answer3)), $user->security_answer3)) {
             $correct = false;
         }
 

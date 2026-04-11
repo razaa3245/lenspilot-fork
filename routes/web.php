@@ -24,6 +24,7 @@ Route::get('/aboutus',   fn() => view('web.content.aboutus'))->name('aboutus');
 Route::get('/features',  fn() => view('web.content.feature'))->name('features');
 // Named 'price' to match existing footer/blade references (route('price'))
 Route::get('/price',     fn() => view('web.content.price'))->name('price');
+Route::get('/price2',    fn() => view('web.content.price2'))->name('price2');
 Route::get('/catalog',   fn() => view('web.content.catalog'))->name('catalog');
 Route::get('/signup',    fn() => view('auth.signup'))->name('signup');
 Route::get('/login',     fn() => view('auth.signup'))->name('login');

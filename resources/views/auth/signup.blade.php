@@ -528,13 +528,14 @@
       <!-- ══ RIGHT PANEL ══ -->
       <div class="right-panel">
 
+        @php $showSignup = $errors->any(); @endphp
         <div class="tab-bar">
-          <button class="tab-btn active" id="loginTab" onclick="showForm('login')">Login</button>
-          <button class="tab-btn"        id="signupTab" onclick="showForm('signup')">Create Account</button>
+          <button class="tab-btn {{ $showSignup ? '' : 'active' }}" id="loginTab" onclick="showForm('login')">Login</button>
+          <button class="tab-btn {{ $showSignup ? 'active' : '' }}" id="signupTab" onclick="showForm('signup')">Create Account</button>
         </div>
 
         <!-- LOGIN -->
-        <div id="loginSection">
+        <div id="loginSection" class="{{ $showSignup ? 'hidden' : '' }}">
           <div class="form-header">
             <h1 class="form-title">Welcome back</h1>
             <p class="form-subtitle">Don't have an account? <a href="#" onclick="showForm('signup')">Sign up</a></p>
@@ -558,22 +559,33 @@
         </div>
 
         <!-- SIGNUP -->
-        <div id="signupSection" class="hidden">
+        <div id="signupSection" class="{{ $showSignup ? '' : 'hidden' }}">
           <div class="form-header">
             <h1 class="form-title">Create an account</h1>
             <p class="form-subtitle">Already have an account? <a href="#" onclick="showForm('login')">Log in</a></p>
           </div>
+
+          @if ($errors->any())
+            <div class="alert alert-error">
+              @if ($errors->has('email'))
+                {{ $errors->first('email') }}
+              @else
+                Please fix the errors below and try again.
+              @endif
+            </div>
+          @endif
+
           <form id="signupForm" method="POST" action="{{ route('signup.prepare') }}">
             @csrf
             <div class="field-row">
-              <div class="field"><input type="text" name="name" placeholder="Full name" required></div>
-              <div class="field"><input type="text" name="shop_name" placeholder="Shop name" required></div>
+              <div class="field"><input type="text" name="name" placeholder="Full name" value="{{ old('name') }}" required></div>
+              <div class="field"><input type="text" name="shop_name" placeholder="Shop name" value="{{ old('shop_name') }}" required></div>
             </div>
-            <div class="field"><input type="text" name="retailer_name" placeholder="Retailer name" required></div>
-            <div class="field"><textarea name="address" placeholder="Address" rows="2"></textarea></div>
+            <div class="field"><input type="text" name="retailer_name" placeholder="Retailer name" value="{{ old('retailer_name') }}" required></div>
+            <div class="field"><textarea name="address" placeholder="Address" rows="2">{{ old('address') }}</textarea></div>
             <div class="field-row">
-              <div class="field"><input type="tel" name="phone" placeholder="Phone number"></div>
-              <div class="field"><input type="email" name="email" placeholder="Email address" required></div>
+              <div class="field"><input type="tel" name="phone" placeholder="Phone number" value="{{ old('phone') }}"></div>
+              <div class="field"><input type="email" name="email" placeholder="Email address" value="{{ old('email') }}" required></div>
             </div>
             <div class="field password-field">
               <input type="password" name="password" id="signupPassword" placeholder="Create a password" required>
@@ -582,22 +594,22 @@
               </button>
             </div>
             <div class="field">
-              <input type="text" name="security_question1" placeholder="Security Question 1 (e.g., Mother's maiden name?)" required>
+              <input type="text" name="security_question1" placeholder="Security Question 1 (e.g., Mother's maiden name?)" value="{{ old('security_question1') }}" required>
             </div>
             <div class="field">
-              <input type="text" name="security_answer1" placeholder="Answer to Question 1" required>
+              <input type="text" name="security_answer1" placeholder="Answer to Question 1" value="{{ old('security_answer1') }}" required>
             </div>
             <div class="field">
-              <input type="text" name="security_question2" placeholder="Security Question 2 (e.g., First pet's name?)" required>
+              <input type="text" name="security_question2" placeholder="Security Question 2 (e.g., First pet's name?)" value="{{ old('security_question2') }}" required>
             </div>
             <div class="field">
-              <input type="text" name="security_answer2" placeholder="Answer to Question 2" required>
+              <input type="text" name="security_answer2" placeholder="Answer to Question 2" value="{{ old('security_answer2') }}" required>
             </div>
             <div class="field">
-              <input type="text" name="security_question3" placeholder="Security Question 3 (e.g., Favorite color?)" required>
+              <input type="text" name="security_question3" placeholder="Security Question 3 (e.g., Favorite color?)" value="{{ old('security_question3') }}" required>
             </div>
             <div class="field">
-              <input type="text" name="security_answer3" placeholder="Answer to Question 3" required>
+              <input type="text" name="security_answer3" placeholder="Answer to Question 3" value="{{ old('security_answer3') }}" required>
             </div>
             <label class="checkbox-label">
               <input type="checkbox" required> I agree to the <a href="#">Terms &amp; Conditions</a>
@@ -735,6 +747,10 @@ function goToSlide(n) {
       document.getElementById('dashboardModal').classList.add('hidden');
       window.location.href = '/';
     }
+
+    @if ($errors->any())
+      showForm('signup');
+    @endif
   </script>
 
 </body>

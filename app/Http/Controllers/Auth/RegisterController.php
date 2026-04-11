@@ -8,6 +8,7 @@ use App\Models\Shopkeeper;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -24,11 +25,11 @@ class RegisterController extends Controller
             'type' => 'shopkeeper',   // Default role
             'is_approved' => false,   // Admin must approve
             'security_question1' => $validated['security_question1'] ?? null,
-            'security_answer1' => isset($validated['security_answer1']) ? Hash::make($validated['security_answer1']) : null,
+            'security_answer1' => isset($validated['security_answer1']) ? Hash::make(Str::lower(trim($validated['security_answer1']))) : null,
             'security_question2' => $validated['security_question2'] ?? null,
-            'security_answer2' => isset($validated['security_answer2']) ? Hash::make($validated['security_answer2']) : null,
+            'security_answer2' => isset($validated['security_answer2']) ? Hash::make(Str::lower(trim($validated['security_answer2']))) : null,
             'security_question3' => $validated['security_question3'] ?? null,
-            'security_answer3' => isset($validated['security_answer3']) ? Hash::make($validated['security_answer3']) : null,
+            'security_answer3' => isset($validated['security_answer3']) ? Hash::make(Str::lower(trim($validated['security_answer3']))) : null,
         ]);
 
         // ✅ Create a corresponding shopkeeper record with the supplied data
@@ -70,11 +71,11 @@ class RegisterController extends Controller
             $user->type = 'shopkeeper';
             $user->is_approved = false;
             $user->security_question1 = $signupData['security_question1'];
-            $user->security_answer1 = Hash::make($signupData['security_answer1']);
+            $user->security_answer1 = Hash::make(Str::lower(trim($signupData['security_answer1'])));
             $user->security_question2 = $signupData['security_question2'];
-            $user->security_answer2 = Hash::make($signupData['security_answer2']);
+            $user->security_answer2 = Hash::make(Str::lower(trim($signupData['security_answer2'])));
             $user->security_question3 = $signupData['security_question3'];
-            $user->security_answer3 = Hash::make($signupData['security_answer3']);
+            $user->security_answer3 = Hash::make(Str::lower(trim($signupData['security_answer3'])));
 
             if (! $user->exists) {
                 $user->password = Hash::make($signupData['password']);

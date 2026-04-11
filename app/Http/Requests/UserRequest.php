@@ -29,4 +29,11 @@ class UserRequest extends FormRequest
             'security_answer3' => 'required|string|max:255',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'email.unique' => 'A user with that email already exists. Please use a different email or log in.',
+        ];
+    }
 }
