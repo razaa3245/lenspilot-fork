@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Shopkeeper;
-use App\Models\TryonLog;        // create this model if it doesn't exist yet
+use App\Models\TryOn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +27,7 @@ class ShopkeeperController extends Controller
     public function getDashboard(Request $request)
     {
         try {
-            $user = $request->user();   // Sanctum / Passport token auth
+            $user = $request->user();
 
             if (!$user) {
                 return response()->json([
@@ -39,26 +39,23 @@ class ShopkeeperController extends Controller
             // ── Shop Profile ──────────────────────────────────────
             $shop = Shopkeeper::where('user_id', $user->id)->first();
 
-
-            // -- Subscription / Plan info --
-            // Plan columns live directly on the shopkeepers table:
-            // plan_name, plan_price, plan_expiry, plan_status
+            // ── Subscription / Plan info ──────────────────────────
             $planName        = 'No Plan';
             $planPrice       = null;
+            $planStatus      = 'none';
             $expiryFormatted = null;
             $daysLeft        = 0;
 
             if ($shop) {
-                $planName  = $shop->plan_name   ?? 'No Plan';
-                $planPrice = $shop->plan_price  ?? null;
-                $planStatus= $shop->plan_status ?? 'none';
+                $planName   = $shop->plan_name   ?? 'No Plan';
+                $planPrice  = $shop->plan_price  ?? null;
+                $planStatus = $shop->plan_status ?? 'none';
 
                 if (!empty($shop->plan_expiry)) {
-                    $expiry          = \Carbon\Carbon::parse($shop->plan_expiry);
-                    $daysLeft        = max(0, (int) \Carbon\Carbon::now()->diffInDays($expiry, false));
+                    $expiry          = Carbon::parse($shop->plan_expiry);
+                    $daysLeft        = max(0, (int) Carbon::now()->diffInDays($expiry, false));
                     $expiryFormatted = $expiry->format('M j, Y');
 
-                    // Auto-expire if date has passed
                     if ($daysLeft === 0 && $planStatus === 'active') {
                         $shop->plan_status = 'expired';
                         $shop->save();
@@ -67,25 +64,21 @@ class ShopkeeperController extends Controller
                 }
             }
 
+            // ── Try-On Stats (try_ons table) ──────────────────────
+            $totalTryons = 0;
+            $changePct   = null;
 
-            // ── Try-On Stats ──────────────────────────────────────
-            $totalTryons    = 0;
-            $changePct      = null;
+            if ($shop) {
+                $shopId = $shop->id;
 
-            if (\Schema::hasTable('tryon_logs')) {
-                $totalTryons = DB::table('tryon_logs')
-                    ->where('shopkeeper_id', $user->id)
-                    ->count();
+                $totalTryons = TryOn::where('shop_id', $shopId)->count();
 
-                // Month-on-month comparison
-                $thisMonth = DB::table('tryon_logs')
-                    ->where('shopkeeper_id', $user->id)
+                $thisMonth = TryOn::where('shop_id', $shopId)
                     ->whereMonth('created_at', Carbon::now()->month)
                     ->whereYear('created_at', Carbon::now()->year)
                     ->count();
 
-                $lastMonth = DB::table('tryon_logs')
-                    ->where('shopkeeper_id', $user->id)
+                $lastMonth = TryOn::where('shop_id', $shopId)
                     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
                     ->whereYear('created_at', Carbon::now()->subMonth()->year)
                     ->count();
@@ -98,7 +91,6 @@ class ShopkeeperController extends Controller
             }
 
             // ── QR Code ───────────────────────────────────────────
-            // catalog_url = the public link customers scan to try lenses
             $catalogUrl = url('/shopkeeper/catalog1');
             $qrImage    = $shop ? ($shop->qr_image ?? null) : null;
 
@@ -106,14 +98,22 @@ class ShopkeeperController extends Controller
             return response()->json([
                 'success' => true,
                 'data'    => [
+                    'user' => [
+                        'id'            => $user->id,
+                        'shopkeeper_id' => $shop?->id,  // ← frontend ko shop_id milega
+                        'name'          => $user->name,
+                        'email'         => $user->email,
+                        'type'          => $user->type,
+                        'shop_name'     => $shop->shop_name ?? $user->name ?? 'Shop',
+                    ],
                     'stats' => [
-                        'total_tryons'       => $totalTryons,
-                        'tryon_change_pct'   => $changePct,
-                        'subscription_plan'  => $planName,
-                        'plan_status'        => $planStatus ?? 'none',
-                        'days_remaining'     => $daysLeft,
-                        'plan_price'         => $planPrice ? 'Rs.' . number_format($planPrice) . '/month' : null,
-                        'plan_expiry'        => $expiryFormatted,
+                        'total_tryons'      => $totalTryons,
+                        'tryon_change_pct'  => $changePct,
+                        'subscription_plan' => $planName,
+                        'plan_status'       => $planStatus,
+                        'days_remaining'    => $daysLeft,
+                        'plan_price'        => $planPrice ? 'Rs.' . number_format($planPrice) . '/month' : null,
+                        'plan_expiry'       => $expiryFormatted,
                     ],
                     'shop' => $shop ? [
                         'id'            => $shop->id,
@@ -121,12 +121,12 @@ class ShopkeeperController extends Controller
                         'retailer_name' => $shop->retailer_name,
                         'phone'         => $shop->phone,
                         'address'       => $shop->address,
-                        'city'          => $shop->city,
+                        'city'          => $shop->city ?? null,
                     ] : null,
                     'qr_code' => [
                         'qr_image'    => $qrImage,
                         'catalog_url' => $catalogUrl,
-                    ]
+                    ],
                 ]
             ]);
 
@@ -159,7 +159,6 @@ class ShopkeeperController extends Controller
                 'city'          => 'nullable|string|max:100',
             ]);
 
-            // Update or create shopkeeper profile
             $shop = Shopkeeper::updateOrCreate(
                 ['user_id' => $user->id],
                 [
@@ -209,11 +208,6 @@ class ShopkeeperController extends Controller
         return view('web.content.catalog1');
     }
 
-
-    // ══════════════════════════════════════════════════════════════
-    // APPROVAL MANAGEMENT (existing methods, unchanged)
-    // ══════════════════════════════════════════════════════════════
-
     public function index()
     {
         return view('web.content.messages');
@@ -238,16 +232,16 @@ class ShopkeeperController extends Controller
                 else                    { $d = floor($diff / 86400); $timeAgo = $d . ' day'    . ($d > 1 ? 's' : '') . ' ago'; }
 
                 return [
-                    'id'           => $shopkeeper->id,
-                    'name'         => $shopkeeper->name,
-                    'email'        => $shopkeeper->email,
-                    'shop_name'    => $profile->shop_name    ?? 'N/A',
-                    'retailer_name'=> $profile->retailer_name ?? 'N/A',
-                    'address'      => $profile->address      ?? 'N/A',
-                    'phone_number' => $profile->phone        ?? $shopkeeper->phone ?? 'N/A',
-                    'created_at'   => date('F j, Y g:i A', $createdTime),
-                    'time_ago'     => $timeAgo,
-                    'is_approved'  => $shopkeeper->is_approved,
+                    'id'            => $shopkeeper->id,
+                    'name'          => $shopkeeper->name,
+                    'email'         => $shopkeeper->email,
+                    'shop_name'     => $profile->shop_name     ?? 'N/A',
+                    'retailer_name' => $profile->retailer_name ?? 'N/A',
+                    'address'       => $profile->address       ?? 'N/A',
+                    'phone_number'  => $profile->phone         ?? $shopkeeper->phone ?? 'N/A',
+                    'created_at'    => date('F j, Y g:i A', $createdTime),
+                    'time_ago'      => $timeAgo,
+                    'is_approved'   => $shopkeeper->is_approved,
                 ];
             });
 
@@ -290,20 +284,15 @@ class ShopkeeperController extends Controller
     public function deleteShopkeeper($id)
     {
         try {
-            $user = User::where('id', $id)->where('type', 'shopkeeper')->first();
+            $user    = User::where('id', $id)->where('type', 'shopkeeper')->first();
             $profile = Shopkeeper::where('user_id', $id)->first();
 
             if (!$user && !$profile) {
                 return response()->json(['success' => false, 'message' => 'Shopkeeper not found'], 404);
             }
 
-            if ($profile) {
-                $profile->delete();
-            }
-
-            if ($user) {
-                $user->delete();
-            }
+            if ($profile) $profile->delete();
+            if ($user)    $user->delete();
 
             return response()->json(['success' => true, 'message' => 'Shopkeeper deleted successfully']);
         } catch (\Exception $e) {
@@ -312,116 +301,94 @@ class ShopkeeperController extends Controller
     }
 
     public function getDetails($id)
-{
-    try {
-        // Find shopkeeper using user_id (IMPORTANT FIX)
-        $shopkeeper = Shopkeeper::where('user_id', $id)->first();
+    {
+        try {
+            $shopkeeper = Shopkeeper::where('user_id', $id)->first();
 
-        if (!$shopkeeper) {
+            if (!$shopkeeper) {
+                return response()->json(['success' => false, 'message' => 'Not found'], 404);
+            }
+
             return response()->json([
-                'success' => false,
-                'message' => 'Not found'
-            ], 404);
+                'success' => true,
+                'data'    => [
+                    'id'            => $shopkeeper->id,
+                    'name'          => $shopkeeper->name,
+                    'email'         => $shopkeeper->email,
+                    'shop_name'     => $shopkeeper->shop_name     ?? 'N/A',
+                    'retailer_name' => $shopkeeper->retailer_name ?? 'N/A',
+                    'address'       => $shopkeeper->address       ?? 'N/A',
+                    'phone_number'  => $shopkeeper->phone         ?? 'N/A',
+                    'created_at'    => $shopkeeper->created_at->format('F j, Y g:i A'),
+                    'plan_name'     => $shopkeeper->plan_name     ?? 'N/A',
+                    'plan_status'   => $shopkeeper->plan_status   ?? 'N/A',
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'data'    => [
-                'id'            => $shopkeeper->id,
-                'name'          => $shopkeeper->name,
-                'email'         => $shopkeeper->email,
-                'shop_name'     => $shopkeeper->shop_name ?? 'N/A',
-                'retailer_name' => $shopkeeper->retailer_name ?? 'N/A',
-                'address'       => $shopkeeper->address ?? 'N/A',
-                'phone_number'  => $shopkeeper->phone ?? 'N/A',
-                'created_at'    => $shopkeeper->created_at->format('F j, Y g:i A'),
-                'plan_name'     => $shopkeeper->plan_name ?? 'N/A',
-                'plan_status'   => $shopkeeper->plan_status ?? 'N/A',
-            ]
-        ]);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage()
-        ], 500);
     }
-}
-    // GET ALL SHOPKEEPERS (approved + pending)
-public function getAllShopkeepers()
-{
-    try {
-        $users = User::where('type', 'shopkeeper')
-            ->orderBy('created_at', 'desc')
-            ->get();
 
-        $data = $users->map(function ($user) {
-            $profile = Shopkeeper::where('user_id', $user->id)->first();
+    public function getAllShopkeepers()
+    {
+        try {
+            $users = User::where('type', 'shopkeeper')
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-            return [
-                'id'            => $user->id,
-                'name'          => $user->name,
-                'email'         => $user->email,
-                'shop_name'     => $profile->shop_name ?? 'N/A',
-                'retailer_name' => $profile->retailer_name ?? 'N/A',
-                'phone_number'  => $profile->phone ?? 'N/A',
-                'address'       => $profile->address ?? 'N/A',
-                'created_at'    => $user->created_at->format('F j, Y g:i A'),
-                'is_approved'   => $user->is_approved,
-                'is_active'     => $user->is_active,
-            ];
-        });
+            $data = $users->map(function ($user) {
+                $profile = Shopkeeper::where('user_id', $user->id)->first();
 
-        return response()->json(['success' => true, 'data' => $data]);
+                return [
+                    'id'            => $user->id,
+                    'name'          => $user->name,
+                    'email'         => $user->email,
+                    'shop_name'     => $profile->shop_name     ?? 'N/A',
+                    'retailer_name' => $profile->retailer_name ?? 'N/A',
+                    'phone_number'  => $profile->phone         ?? 'N/A',
+                    'address'       => $profile->address       ?? 'N/A',
+                    'created_at'    => $user->created_at->format('F j, Y g:i A'),
+                    'is_approved'   => $user->is_approved,
+                    'is_active'     => $user->is_active,
+                ];
+            });
 
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            return response()->json(['success' => true, 'data' => $data]);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
     }
-}
-public function toggleStatus($id)
-{
-    try {
-        $user = User::where('id', $id)
-            ->where('type', 'shopkeeper')
-            ->first();
 
-        if (!$user) {
+    public function toggleStatus($id)
+    {
+        try {
+            $user = User::where('id', $id)->where('type', 'shopkeeper')->first();
+
+            if (!$user) {
+                return response()->json(['success' => false, 'message' => 'Shopkeeper not found'], 404);
+            }
+
+            $user->is_active = !$user->is_active;
+            $user->save();
+
+            $shopkeeper = Shopkeeper::where('user_id', $user->id)->first();
+
+            if ($shopkeeper) {
+                $shopkeeper->plan_status = $user->is_active ? 'active' : 'expired';
+                $shopkeeper->save();
+            }
+
             return response()->json([
-                'success' => false,
-                'message' => 'Shopkeeper not found'
-            ], 404);
+                'success'     => true,
+                'message'     => 'Status updated successfully',
+                'is_active'   => $user->is_active,
+                'plan_status' => $shopkeeper->plan_status ?? null
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
-
-        // Toggle user active status
-        $user->is_active = !$user->is_active;
-        $user->save();
-
-        // 🔥 UPDATE SHOPKEEPER PLAN STATUS
-        $shopkeeper = Shopkeeper::where('user_id', $user->id)->first();
-
-      if ($shopkeeper) {
-
-    if ($user->is_active == 0) {
-        $shopkeeper->plan_status = 'expired'; // ✅ FIXED
-    } else {
-        $shopkeeper->plan_status = 'active';
     }
-
-    $shopkeeper->save();
-}
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Status updated successfully',
-            'is_active' => $user->is_active,
-            'plan_status' => $shopkeeper->plan_status ?? null
-        ]);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage()
-        ], 500);
-    }
-}
 }

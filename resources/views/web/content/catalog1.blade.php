@@ -314,10 +314,11 @@
       const FASTAPI_WS = "ws://localhost:8001";
       const SEND_W = 640, SEND_H = 480;
 
-      let allLenses = [];
+      let allLenses     = [];
       let currentLensId = null;
-      let videoStream = null;
-      let isLiveMode = false;
+      let currentShopId = null; // ← NAYA: shop_id yahan store hoga
+      let videoStream   = null;
+      let isLiveMode    = false;
       let ws = null, wsReady = false, frameInFlight = false;
 
       // Reusable canvases — no GC
@@ -336,188 +337,202 @@
       }
 
       // ─────────────────────────────────────────
-      // UI
+      // UI — INIT (shop_id bhi fetch hota hai yahan)
       // ─────────────────────────────────────────
       function initUI() {
-        const info = JSON.parse(localStorage.getItem('user_info') || '{}');
+        const info  = JSON.parse(localStorage.getItem('user_info') || '{}');
         const email = localStorage.getItem('adminEmail') || info.email || 'Guest';
-        document.getElementById('admin-email').textContent = email;
-        document.getElementById('admin-email-sidebar').textContent = email;
-        document.getElementById('sidebar-email-first').textContent = email.charAt(0).toUpperCase();
+        document.getElementById('admin-email').textContent          = email;
+        document.getElementById('admin-email-sidebar').textContent  = email;
+        document.getElementById('sidebar-email-first').textContent  = email.charAt(0).toUpperCase();
 
-        // Load plan info into sidebar
+        // Dashboard se shop_id aur plan info fetch karo
         const token = localStorage.getItem('auth_token');
         if (token) {
-          fetch('/api/shopkeeper/dashboard', { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/json' } })
-            .then(r => r.json()).then(result => {
-              if (result.success && result.data && result.data.stats) {
-                const s = result.data.stats;
-                const pn = document.getElementById('sidebar-plan-name');
-                const pp = document.getElementById('sidebar-plan-price');
-                const pe = document.getElementById('sidebar-plan-expiry');
-                if (pn) pn.textContent = s.subscription_plan || '—';
-                if (pp) pp.textContent = s.plan_price || '';
-                if (pe) pe.textContent = s.plan_expiry ? 'Expires: ' + s.plan_expiry : '—';
-              }
-            }).catch(() => {});
+          fetch('/api/shopkeeper/dashboard', {
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'Accept': 'application/json'
+            }
+          })
+          .then(r => r.json())
+          .then(result => {
+            if (result.success && result.data) {
+              // ── Shop ID store karo (tryons mein use hoga) ──
+              currentShopId = result.data.shop?.id || result.data.user?.shopkeeper_id || null;
+
+              // ── Sidebar plan info ──
+              const s  = result.data.stats || {};
+              const pn = document.getElementById('sidebar-plan-name');
+              const pp = document.getElementById('sidebar-plan-price');
+              const pe = document.getElementById('sidebar-plan-expiry');
+              if (pn) pn.textContent = s.subscription_plan || '—';
+              if (pp) pp.textContent = s.plan_price || '';
+              if (pe) pe.textContent = s.plan_expiry ? 'Expires: ' + s.plan_expiry : '—';
+            }
+          })
+          .catch(() => {});
         }
       }
 
+      // ─────────────────────────────────────────
+      // FETCH LENSES
+      // ─────────────────────────────────────────
       async function fetchLenses() {
         try {
-          const res = await fetch('/api/lenses');
+          const res  = await fetch('/api/lenses');
           const data = await res.json();
-          allLenses = Array.isArray(data) ? data : (data.data || []);
+          allLenses  = Array.isArray(data) ? data : (data.data || []);
           displayLenses(allLenses);
         } catch {
-          document.getElementById('loading').style.display = 'none';
+          document.getElementById('loading').style.display   = 'none';
           document.getElementById('no-lenses').style.display = 'flex';
         }
       }
 
-function displayLenses(lenses) {
-  allLenses = lenses;
-  filterLenses();
-}
+      function displayLenses(lenses) {
+        allLenses = lenses;
+        filterLenses();
+      }
 
-function filterLenses() {
-  const q    = (document.getElementById('lens-search')?.value || '').trim().toLowerCase();
-  const sort = document.getElementById('lens-sort')?.value || 'default';
+      function filterLenses() {
+        const q    = (document.getElementById('lens-search')?.value || '').trim().toLowerCase();
+        const sort = document.getElementById('lens-sort')?.value || 'default';
 
-  let list = allLenses.filter(l =>
-    !q || (l.name || '').toLowerCase().includes(q)
-  );
+        let list = allLenses.filter(l =>
+          !q || (l.name || '').toLowerCase().includes(q)
+        );
 
-  if (sort === 'az') list = [...list].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-  if (sort === 'za') list = [...list].sort((a, b) => (b.name || '').localeCompare(a.name || ''));
-  if (['freshkon', 'freshlook', 'bella'].includes(sort)) {
-    list = list.filter(l => (l.brand || '').toLowerCase() === sort);
-  }
+        if (sort === 'az') list = [...list].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        if (sort === 'za') list = [...list].sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+        if (['freshkon', 'freshlook', 'bella'].includes(sort)) {
+          list = list.filter(l => (l.brand || '').toLowerCase() === sort);
+        }
 
-  const c = document.getElementById('lens-container');
-  document.getElementById('loading').style.display = 'none';
+        const c = document.getElementById('lens-container');
+        document.getElementById('loading').style.display = 'none';
 
-  const count = document.getElementById('lens-count');
-  if (count) count.textContent = `${list.length} lens${list.length !== 1 ? 'es' : ''}`;
+        const count = document.getElementById('lens-count');
+        if (count) count.textContent = `${list.length} lens${list.length !== 1 ? 'es' : ''}`;
 
-  if (!list.length) {
-    document.getElementById('no-lenses').style.display = 'flex';
-    c.style.display = 'none';
-    return;
-  }
+        if (!list.length) {
+          document.getElementById('no-lenses').style.display = 'flex';
+          c.style.display = 'none';
+          return;
+        }
 
-  document.getElementById('no-lenses').style.display = 'none';
-  c.style.display = 'grid';
+        document.getElementById('no-lenses').style.display = 'none';
+        c.style.display = 'grid';
 
-  c.innerHTML = list.map((l, i) => {
-    const img = l.image
-      ? (l.image.startsWith('http') ? l.image : '/storage/' + l.image)
-      : null;
+        c.innerHTML = list.map((l, i) => {
+          const img = l.image
+            ? (l.image.startsWith('http') ? l.image : '/storage/' + l.image)
+            : null;
 
-    const imageHtml = img
-      ? `<img src="${img}" alt="${l.name || 'Lens'}"
-              style="width:100%;height:100%;object-fit:contain;transition:transform .5s ease;"
-              onmouseover="this.style.transform='scale(1.06)'"
-              onmouseout="this.style.transform='scale(1)'">`
-      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-           <svg width="56" height="56" viewBox="0 0 24 24" fill="none"
-                stroke="#cbd5e1" stroke-width="1.4">
-             <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-             <circle cx="12" cy="12" r="3"/>
-           </svg>
-         </div>`;
+          const imageHtml = img
+            ? `<img src="${img}" alt="${l.name || 'Lens'}"
+                    style="width:100%;height:100%;object-fit:contain;transition:transform .5s ease;"
+                    onmouseover="this.style.transform='scale(1.06)'"
+                    onmouseout="this.style.transform='scale(1)'">`
+            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                 <svg width="56" height="56" viewBox="0 0 24 24" fill="none"
+                      stroke="#cbd5e1" stroke-width="1.4">
+                   <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                   <circle cx="12" cy="12" r="3"/>
+                 </svg>
+               </div>`;
 
-    return `
-    <div class="group" style="
-      background:#fff;
-      border-radius:20px;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      box-shadow:0 2px 16px rgba(0,0,0,0.07);
-      transition:transform .3s ease, box-shadow .3s ease;
-      border:1px solid rgba(0,0,0,0.06);
-    "
-    onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 50px rgba(0,0,0,0.13)'"
-    onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 16px rgba(0,0,0,0.07)'">
-
-      <!-- Image Panel — clean white, no background color -->
-      <div style="
-        position:relative;
-        background:#fff;
-        height:210px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        overflow:hidden;
-        border-bottom:1px solid #f1f5f9;
-        padding:16px;
-      ">
-        <!-- Badge -->
-        <span style="
-          position:absolute;top:12px;left:12px;z-index:10;
-          background:#f8fafc;
-          color:#0891b2;
-          font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-          padding:4px 10px;border-radius:20px;
-          border:1px solid #e2e8f0;
-          box-shadow:0 1px 4px rgba(0,0,0,0.05);
-        ">Virtual Try-On</span>
-
-        <!-- Full lens image -->
-        <div style="width:100%;height:100%;position:relative;z-index:5;display:flex;align-items:center;justify-content:center;">
-          ${imageHtml}
-        </div>
-      </div>
-
-      <!-- Thin divider -->
-      <div style="height:2px;background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
-
-      <!-- Content -->
-      <div style="display:flex;flex-direction:column;align-items:center;padding:18px 20px 20px;gap:6px;flex:1;text-align:center;">
-
-        <p style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin:0;">
-          Premium Collection
-        </p>
-
-        <h3 style="font-size:16px;font-weight:800;color:#0f172a;margin:0;line-height:1.3;">
-          ${l.name || 'Unnamed Lens'}
-        </h3>
-
-        <div style="width:32px;height:2.5px;border-radius:99px;background:#06b6d4;margin:4px 0 10px;"></div>
-
-        <!-- CTA -->
-        <button onclick="openTryOnModal('${l.id}')"
-          style="
-            width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
-            background:linear-gradient(135deg,#0891b2,#0e7490);
-            color:#fff;font-size:13px;font-weight:700;letter-spacing:.03em;
-            padding:12px 16px;border-radius:12px;border:none;cursor:pointer;
-            box-shadow:0 4px 14px rgba(8,145,178,0.35);
-            transition:opacity .2s,transform .15s;
-            margin-top:auto;
+          return `
+          <div class="group" style="
+            background:#fff;
+            border-radius:20px;
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+            box-shadow:0 2px 16px rgba(0,0,0,0.07);
+            transition:transform .3s ease, box-shadow .3s ease;
+            border:1px solid rgba(0,0,0,0.06);
           "
-          onmouseover="this.style.opacity='.88';this.style.transform='scale(1.02)'"
-          onmouseout="this.style.opacity='1';this.style.transform='scale(1)'">
+          onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 50px rgba(0,0,0,0.13)'"
+          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 16px rgba(0,0,0,0.07)'">
 
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-          Try This Lens
-        </button>
-      </div>
-    </div>`;
-  }).join('');
-}
+            <!-- Image Panel -->
+            <div style="
+              position:relative;
+              background:#fff;
+              height:210px;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              overflow:hidden;
+              border-bottom:1px solid #f1f5f9;
+              padding:16px;
+            ">
+              <span style="
+                position:absolute;top:12px;left:12px;z-index:10;
+                background:#f8fafc;
+                color:#0891b2;
+                font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+                padding:4px 10px;border-radius:20px;
+                border:1px solid #e2e8f0;
+                box-shadow:0 1px 4px rgba(0,0,0,0.05);
+              ">Virtual Try-On</span>
+
+              <div style="width:100%;height:100%;position:relative;z-index:5;display:flex;align-items:center;justify-content:center;">
+                ${imageHtml}
+              </div>
+            </div>
+
+            <!-- Thin divider -->
+            <div style="height:2px;background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
+
+            <!-- Content -->
+            <div style="display:flex;flex-direction:column;align-items:center;padding:18px 20px 20px;gap:6px;flex:1;text-align:center;">
+
+              <p style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin:0;">
+                Premium Collection
+              </p>
+
+              <h3 style="font-size:16px;font-weight:800;color:#0f172a;margin:0;line-height:1.3;">
+                ${l.name || 'Unnamed Lens'}
+              </h3>
+
+              <div style="width:32px;height:2.5px;border-radius:99px;background:#06b6d4;margin:4px 0 10px;"></div>
+
+              <!-- CTA -->
+              <button onclick="openTryOnModal('${l.id}')"
+                style="
+                  width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
+                  background:linear-gradient(135deg,#0891b2,#0e7490);
+                  color:#fff;font-size:13px;font-weight:700;letter-spacing:.03em;
+                  padding:12px 16px;border-radius:12px;border:none;cursor:pointer;
+                  box-shadow:0 4px 14px rgba(8,145,178,0.35);
+                  transition:opacity .2s,transform .15s;
+                  margin-top:auto;
+                "
+                onmouseover="this.style.opacity='.88';this.style.transform='scale(1.02)'"
+                onmouseout="this.style.opacity='1';this.style.transform='scale(1)'">
+
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                Try This Lens
+              </button>
+            </div>
+          </div>`;
+        }).join('');
+      }
 
       // ─────────────────────────────────────────
-      // MODAL
+      // MODAL — TryOn record bhi save hota hai
       // ─────────────────────────────────────────
       async function openTryOnModal(lensId) {
         currentLensId = lensId;
         document.getElementById('tryOnModal').classList.remove('hidden');
         resetCamera();
+
+        // Camera start karo
         try {
           videoStream = await navigator.mediaDevices.getUserMedia({
             video: { width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 30 } },
@@ -527,6 +542,29 @@ function filterLenses() {
         } catch {
           alert("Camera access denied!");
           closeModal();
+        }
+
+        // ── TryOn DB mein save karo ──────────────
+        try {
+          const token = localStorage.getItem('auth_token');
+
+          await fetch('/api/tryons', {
+            method: 'POST',
+            headers: {
+              'Content-Type':  'application/json',
+              'Accept':        'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+              lens_id:     lensId,
+              shop_id:     currentShopId,  // ← dashboard se aaya hua real shop_id
+              customer_id: null,
+              status:      'completed',
+              tryon_time:  new Date().toISOString()
+            })
+          });
+        } catch (e) {
+          console.warn('TryOn record save failed:', e);
         }
       }
 
@@ -538,7 +576,6 @@ function filterLenses() {
 
       function resetCamera() {
         stopLiveMode();
-        // Clear the AR overlay canvas
         const overlay = document.getElementById('ar-overlay');
         if (overlay) overlay.getContext('2d').clearRect(0, 0, overlay.width, overlay.height);
         document.getElementById('status-msg').innerText = "Align your face and click apply";
@@ -557,17 +594,17 @@ function filterLenses() {
 
       function updateFPS() {
         fpsFrames++;
-        const now = performance.now();
+        const now  = performance.now();
         const diff = now - fpsLast;
         if (diff >= 1000) {
           const fps = Math.round(fpsFrames * 1000 / diff);
-          const el = document.getElementById('fps-counter');
+          const el  = document.getElementById('fps-counter');
           if (el) {
             el.textContent = `${fps} FPS`;
             el.style.color = fps >= 15 ? '#4ade80' : fps >= 8 ? '#facc15' : '#f87171';
           }
           fpsFrames = 0;
-          fpsLast = now;
+          fpsLast   = now;
         }
       }
 
@@ -576,13 +613,11 @@ function filterLenses() {
       let hasResult = false;
 
       processedImg.onload = () => {
-        // When server result arrives, draw it onto the overlay canvas
         const overlay = document.getElementById('ar-overlay');
         if (!overlay || !isLiveMode) return;
-        overlay.width = overlay.offsetWidth;
+        overlay.width  = overlay.offsetWidth;
         overlay.height = overlay.offsetHeight;
         const ctx = overlay.getContext('2d');
-        // Draw result — server already mirrored it to match webcam
         ctx.drawImage(processedImg, 0, 0, overlay.width, overlay.height);
         hasResult = true;
         updateFPS();
@@ -602,10 +637,8 @@ function filterLenses() {
             const data = JSON.parse(event.data);
             if (data.error) { console.warn("[WS]", data.error); frameInFlight = false; return; }
             if (data.frame && isLiveMode) {
-              // Load result into reused Image object — triggers onload above
               processedImg.src = "data:image/jpeg;base64," + data.frame;
             }
-            // Immediately send next frame — no waiting
             frameInFlight = false;
             if (isLiveMode) sendWsFrame();
           };
@@ -620,7 +653,6 @@ function filterLenses() {
         if (!ws || ws.readyState !== WebSocket.OPEN) return;
         const video = document.getElementById('webcam');
         if (!video || video.readyState < 2) {
-          // Video not ready yet — retry in 100ms
           setTimeout(sendWsFrame, 100); return;
         }
         frameInFlight = true;
@@ -636,8 +668,8 @@ function filterLenses() {
         if (isLiveMode) { stopLiveMode(); return; }
 
         isLiveMode = true;
-        hasResult = false;
-        const btn = document.getElementById('live-toggle-btn');
+        hasResult  = false;
+        const btn  = document.getElementById('live-toggle-btn');
         btn.innerText = "⏹ Stop Live AR";
         btn.classList.replace('bg-yellow-500', 'bg-red-500');
 
@@ -652,7 +684,6 @@ function filterLenses() {
         try {
           await openWebSocket();
           document.getElementById('status-msg').innerText = "Live AR running!";
-          // Kick off first frame
           sendWsFrame();
         } catch {
           document.getElementById('status-msg').innerText = "Could not connect to AR server.";
@@ -662,7 +693,7 @@ function filterLenses() {
 
       function stopLiveMode() {
         isLiveMode = false; frameInFlight = false; hasResult = false;
-        fpsFrames = 0;
+        fpsFrames  = 0;
 
         const btn = document.getElementById('live-toggle-btn');
         if (btn) { btn.innerText = "▶ Start Live AR"; btn.classList.replace('bg-red-500', 'bg-yellow-500'); }
@@ -672,7 +703,6 @@ function filterLenses() {
           if (el) el.classList.add('hidden');
         });
 
-        // Clear overlay
         const overlay = document.getElementById('ar-overlay');
         if (overlay) overlay.getContext('2d').clearRect(0, 0, overlay.width, overlay.height);
 
@@ -684,12 +714,13 @@ function filterLenses() {
       // ─────────────────────────────────────────
       document.getElementById('capture-btn').onclick = async () => {
         stopLiveMode();
-        const video = document.getElementById('webcam');
+        const video   = document.getElementById('webcam');
         const spinner = document.getElementById('loading-spinner');
-        const status = document.getElementById('status-msg');
+        const status  = document.getElementById('status-msg');
 
         const pc = document.createElement('canvas');
-        pc.width = video.videoWidth; pc.height = video.videoHeight;
+        pc.width  = video.videoWidth;
+        pc.height = video.videoHeight;
         pc.getContext('2d').drawImage(video, 0, 0);
 
         spinner.classList.remove('hidden');
@@ -702,17 +733,16 @@ function filterLenses() {
           try {
             const res = await fetch(`${FASTAPI_HTTP}/apply-lens`, { method: "POST", body: fd });
             if (res.ok) {
-              // For photo mode: draw result onto the overlay canvas at full size
-              const url = URL.createObjectURL(await res.blob());
+              const url     = URL.createObjectURL(await res.blob());
               const overlay = document.getElementById('ar-overlay');
               const tempImg = new Image();
               tempImg.onload = () => {
-                overlay.width = overlay.offsetWidth;
+                overlay.width  = overlay.offsetWidth;
                 overlay.height = overlay.offsetHeight;
                 overlay.getContext('2d').drawImage(tempImg, 0, 0, overlay.width, overlay.height);
                 URL.revokeObjectURL(url);
               };
-              tempImg.src = url;
+              tempImg.src      = url;
               status.innerText = "✓ Lens applied!";
             } else {
               status.innerText = "⚠ Face not detected. Try again.";

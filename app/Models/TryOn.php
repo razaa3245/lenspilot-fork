@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,23 +8,24 @@ class TryOn extends Model
 {
     use HasFactory;
 
-    protected $table = 'try_ons';
-    protected $primaryKey = 'tryon_id';
+    protected $table      = 'try_ons';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
+        'shop_id',
         'customer_id',
         'lens_id',
         'image_url',
         'status',
+        'tryon_time',
     ];
 
-    public function customer()
+    public function shopkeeper()
     {
-        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
+        return $this->belongsTo(Shopkeeper::class, 'shop_id');
     }
-
     public function lens()
     {
-        return $this->belongsTo(Lens::class, 'lens_id', 'lens_id');
+        return $this->belongsTo(Lens::class, 'lens_id', 'id'); // 'id' fix kiya
     }
 }

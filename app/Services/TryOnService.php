@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 use App\Models\TryOn;
@@ -8,7 +7,7 @@ class TryOnService
 {
     public function all()
     {
-        return TryOn::with(['customer', 'lens'])->latest()->get();
+        return TryOn::with(['lens'])->latest()->get(); // customer hataya
     }
 
     public function create(array $data): TryOn
