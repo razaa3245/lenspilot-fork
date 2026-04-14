@@ -570,7 +570,7 @@
               @if ($errors->has('email'))
                 {{ $errors->first('email') }}
               @else
-                Please fix the errors below and try again.
+                Please enter password with minimum 6-digits.
               @endif
             </div>
           @endif
