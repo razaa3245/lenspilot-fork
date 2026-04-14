@@ -135,7 +135,7 @@
         </div>
         <div class="vt-user-info">
           <span id="admin-email-sidebar" style="color:#fff;font-size:12px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;"></span>
-          <p style="color:rgba(255,255,255,.4);font-size:11px;margin:2px 0 0;">Shopkeeper</p>
+          <p style="color:rgba(255,255,255,.4);font-size:11px;margin:2px 0 0;">Admin</p>
         </div>
       </div>
       <button onclick="vtToggleSidebar()" style="background:transparent;border:none;cursor:pointer;padding:6px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='transparent'">

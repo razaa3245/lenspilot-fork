@@ -7,12 +7,17 @@
     <title>LensPilot - Shopkeeper Activation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('sidebar', { open: false });
+        });
+    </script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body class="bg-[#F0F4FD]" style="font-family:'Plus Jakarta Sans',sans-serif;">
 
     <!-- SIDEBAR (Desktop & Tablet) -->
-    <aside x-data x-init="$store.sidebar = { open: false }" 
+    <aside x-data 
            :class="$store.sidebar.open ? 'w-64' : 'w-20'" 
            class="desktop-sidebar h-screen shadow-xl transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50" style="background:#0B1437;border-right:1px solid rgba(255,255,255,0.08);">
         

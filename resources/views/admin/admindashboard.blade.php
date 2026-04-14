@@ -7,6 +7,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>LensPilot - Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('sidebar', { open: false });
+        });
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -144,7 +149,7 @@
 
 <body>
     <!-- SIDEBAR (Desktop & Tablet) -->
-    <aside x-data x-init="$store.sidebar = { open: false }" :class="$store.sidebar.open ? 'w-64' : 'w-20'"
+    <aside x-data :class="$store.sidebar.open ? 'w-64' : 'w-20'"
         class="desktop-sidebar h-screen shadow-xl transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50 border-r sidebar-border">
         <div>
             <div class="flex items-center justify-between p-4 border-b sidebar-border">
