@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\LensController;
 use App\Http\Controllers\Api\TryOnController;
 use App\Http\Controllers\Api\QrCodeController;
 use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\ShopkeeperController;  // ← Capital K wala
+use App\Http\Controllers\ShopkeeperController;
 
 // ========== AUTH ROUTES ==========
 Route::post('/register', [AuthController::class, 'register']);
@@ -25,26 +25,22 @@ Route::delete('/users/{id}', [UserController::class, 'delete']);
 Route::post('/verify-otp', [UserController::class, 'verifyOtp'])->name('verify.otp');
 Route::post('/resend-otp', [UserController::class, 'resendOtp'])->name('resend.otp');
 
-// ========== LENSES / TRYON / QR ==========
-Route::apiResource('lenses', LensController::class);
+// ========== PUBLIC ROUTES ==========
+Route::get('/lenses', [LensController::class, 'apiIndex']);
 Route::apiResource('tryons', TryOnController::class);
 Route::apiResource('qrcodes', QrCodeController::class);
-
-// ========== PUBLIC LENSES ==========
-Route::get('/lenses', [LensController::class, 'apiIndex']);
 
 // ========== ADMIN PROTECTED ROUTES ==========
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
     Route::get('/admin/shops', [AdminController::class, 'getShops']);
     Route::post('/admin/approve/{id}', [AdminController::class, 'approveShopkeeper']);
-    
-    Route::prefix('api/admin')->group(function () {
+
+    Route::prefix('admin')->group(function () {
         Route::get('/lenses', [LensController::class, 'apiIndex']);
         Route::post('/lenses', [LensController::class, 'store']);
         Route::post('/lenses/{id}', [LensController::class, 'update']);
         Route::delete('/lenses/{id}', [LensController::class, 'destroy']);
-        Route::get('/dashboard', [AdminController::class, 'dashboard']);
     });
 });
 
