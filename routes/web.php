@@ -41,24 +41,6 @@ Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name(
 Route::get('/contact',   fn() => view('web.content.contact'))->name('contact');
 Route::get('/contact-us',fn() => view('web.content.contact'))->name('contactus');
 
-// Contact form submission
-Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
-
-//TEMP PASS ROUTE
-Route::get('/setup-admin-xyz', function () {
-    \App\Models\User::updateOrCreate(
-        ['email' => 'admin@lenspilot.com'],
-        [
-            'name' => 'Admin',
-            'password' => \Illuminate\Support\Facades\Hash::make('admin1234'),
-            'type' => 'admin',
-            'is_approved' => 1,
-            'is_active' => 1,
-        ]
-    );
-    return 'Admin ready!';
-});
-
 // ═══════════════════════════════════════════════
 // SHOPKEEPER PAGES  (blade views, no auth guard here
 //  — auth is handled in JS via localStorage token)
