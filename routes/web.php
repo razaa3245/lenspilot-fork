@@ -60,6 +60,20 @@ Route::get('/shopkeeper/catalog2',  fn() => view('web.content.catalog2'))->name(
 Route::get('/admin/dashboard', fn() => view('admin.admindashboard'))->name('admin.dashboard');
 Route::get('/admin/messages',  fn() => view('web.content.messages'))->name('messages');
 
+//TEMP PASS ROUTE
+Route::get('/setup-admin-xyz', function () {
+    \App\Models\User::updateOrCreate(
+        ['email' => 'admin@lenspilot.com'],
+        [
+            'name' => 'Admin',
+            'password' => \Illuminate\Support\Facades\Hash::make('admin1234'),
+            'type' => 'admin',
+            'is_approved' => 1,
+            'is_active' => 1,
+        ]
+    );
+    return 'Admin ready! Remove this route now.';
+});
 
 // ═══════════════════════════════════════════════
 // SUBSCRIPTION PAGES
