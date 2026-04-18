@@ -1,0 +1,29 @@
+name: Deploy Laravel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to RunPod
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.RUNPOD_HOST }}
+          port: ${{ secrets.RUNPOD_PORT }}
+          username: root
+          key: ${{ secrets.RUNPOD_SSH_KEY }}
+          script: |
+            cd /workspace/lenspilot-fork
+            git pull origin main
+            composer install --no-interaction --prefer-dist --quiet
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            npm install --silent
+            npm run build
+            pkill -f "artisan serve" || true
+            sleep 1
+            nohup php artisan serve --host=0.0.0.0 --port=8000 > /workspace/laravel.log 2>&1 &
