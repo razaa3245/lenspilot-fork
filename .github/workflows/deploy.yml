@@ -21,7 +21,6 @@ jobs:
             composer install --no-interaction --prefer-dist --quiet
             php artisan migrate --force
             php artisan config:cache
-            php artisan route:cache
             npm install --silent
             npm run build
             bash /workspace/start-laravel.sh
