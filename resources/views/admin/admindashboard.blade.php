@@ -411,7 +411,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                             </svg>
-                            + Add New Lens
+                            Add New Lens
                         </button>
                         <div id="lensesList" class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                             <p class="text-center text-gray-400 py-12 text-sm">Loading lenses...</p>
@@ -657,9 +657,11 @@
         lenses:    '/api/lenses',           // GET  — public, no auth needed
         adminLens: '/api/admin/lenses',     // POST — requires token
         dashboard: '/api/admin/dashboard',  // GET  — requires token
+        allShops:  '/api/admin/all-shops',  // GET  — all shopkeepers for search
     };
 
     let allLenses = [];
+    let allShops  = [];
 
     // ─────────────────────────────────────────────────────
     // BOOT
@@ -713,12 +715,30 @@
 
         // Always load lenses separately (public endpoint, always works)
         loadLenses();
+        loadAllShops(token);
     }
 
     function updateStats(stats) {
         document.getElementById('totalShops').textContent  = stats.total_shops  ?? 0;
         document.getElementById('activeUsers').textContent = stats.active_users ?? 0;
         document.getElementById('totalLenses').textContent = stats.lens_catalog ?? 0;
+    }
+
+    // ─────────────────────────────────────────────────────
+    // LOAD ALL SHOPS — for search functionality
+    // ─────────────────────────────────────────────────────
+    async function loadAllShops(token) {
+        try {
+            const response = await fetch(API.allShops, {
+                headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/json' }
+            });
+            const result = await response.json();
+            if (result.success && Array.isArray(result.data)) {
+                allShops = result.data;
+            }
+        } catch (err) {
+            console.warn('Could not load all shops for search:', err);
+        }
     }
 
     // ─────────────────────────────────────────────────────
@@ -953,11 +973,35 @@
 
     function setupShopSearch() {
         document.getElementById('shop-search').addEventListener('input', function () {
-            const term = this.value.toLowerCase();
-            document.querySelectorAll('#shopsList > div').forEach(item => {
-                const name = item.querySelector('h3')?.textContent.toLowerCase() || '';
-                item.style.display = name.includes(term) ? 'flex' : 'none';
-            });
+            const term = this.value.trim().toLowerCase();
+
+            if (term === '') {
+                // Search clear hone par recent 3 wapas dikhao
+                updateShopsList(allShops.slice(0, 3));
+                return;
+            }
+
+            if (allShops.length > 0) {
+                // Puri list mein se search karo (name + email dono)
+                const filtered = allShops.filter(shop =>
+                    (shop.name  || '').toLowerCase().includes(term) ||
+                    (shop.email || '').toLowerCase().includes(term)
+                );
+
+                if (filtered.length === 0) {
+                    document.getElementById('shopsList').innerHTML =
+                        '<p class="text-center text-gray-400 py-12 text-sm">No shops found matching "' + this.value + '"</p>';
+                } else {
+                    updateShopsList(filtered);
+                }
+            } else {
+                // Fallback: agar allShops load nahi hua to DOM filter karo
+                document.querySelectorAll('#shopsList > div').forEach(item => {
+                    const name  = item.querySelector('h3')?.textContent.toLowerCase() || '';
+                    const email = item.querySelector('p')?.textContent.toLowerCase()  || '';
+                    item.style.display = (name.includes(term) || email.includes(term)) ? 'flex' : 'none';
+                });
+            }
         });
     }
 ///////////////////Shop  details displaying///////////////////////
